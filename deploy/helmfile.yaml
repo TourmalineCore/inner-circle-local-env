@@ -1,0 +1,32 @@
+repositories:
+  - name: bitnami
+    url: https://charts.bitnami.com/bitnami
+  - name: ingress-nginx
+    url: https://kubernetes.github.io/ingress-nginx
+
+environments:
+  local:
+    values:
+      - environments/{{ .Environment.Name }}/values.yaml.gotmpl
+
+releases:
+  - name: ingress-nginx
+    labels:
+      app: ingress-nginx
+    wait: true
+    chart: ingress-nginx/ingress-nginx
+    version: 4.10.1
+    values:
+      - values-ingress-nginx.yaml.gotmpl
+
+  - name: postgresql
+    namespace: default
+    labels:
+      app: postgresql
+    wait: true
+    chart: bitnami/postgresql
+    version: 12.2.7
+    values:
+      - values-postgre.yaml
+      - values-postgre.yaml.gotmpl
+

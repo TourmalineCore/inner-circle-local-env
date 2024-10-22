@@ -1,0 +1,6 @@
+ingress:
+  hostname: "{{ .Values.hostname }}"
+  annotations:
+    # to do not redirect from http to https
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+  tls: false
