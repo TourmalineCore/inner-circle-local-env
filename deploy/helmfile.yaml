@@ -131,3 +131,88 @@ releases:
       - git::https://github.com/TourmalineCore/inner-circle-email-sender.git@/Api/ci/values-custom.yaml?ref=feature/decrease-limits
       - values.yaml.gotmpl
       - values-email-sender.yaml.gotmpl
+
+  - name: inner-circle-auth-ui
+    labels:
+      app: inner-circle-auth-ui
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
+      - values.yaml.gotmpl
+      - values-auth-ui.yaml.gotmpl
+
+  - name: inner-circle-accounts-ui
+    labels:
+      app: inner-circle-accounts-ui
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/account-management-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
+      - values.yaml.gotmpl
+      - values-accounts-ui.yaml.gotmpl
+
+  - name: inner-circle-documents-ui
+    labels:
+      app: inner-circle-documents-ui
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-documents-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
+      - values.yaml.gotmpl
+      - values-documents-ui.yaml.gotmpl
+
+  - name: inner-circle-compensations-ui
+    labels:
+      app: inner-circle-compensations-ui
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-compensations-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
+      - values.yaml.gotmpl
+      - values-compensations-ui.yaml.gotmpl
+
+  - name: inner-circle-ui
+    labels:
+      app: inner-circle-ui
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
+      - values.yaml.gotmpl
+      - values-ui.yaml.gotmpl
