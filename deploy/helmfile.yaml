@@ -41,6 +41,8 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-accounts-api
+      - inner-circle-email-sender
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/auth-api.git@/Api/ci/values-custom.yaml?ref=feature/enable-ingress
@@ -58,6 +60,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-finances-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/accounts-api.git@/Api/ci/values-custom.yaml?ref=feature/make-redeploy
@@ -75,6 +78,8 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-finances-api
+      - inner-circle-email-sender
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-documents-api.git@/Api/ci/values-custom.yaml?ref=feature/decrease-limits
@@ -92,6 +97,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-finances-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-compensations-api.git@/Api/ci/values-custom.yaml?ref=feature/decrease-limits
@@ -109,6 +115,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-finances-api.git@/SalaryService.Api/ci/values-custom.yaml?ref=feature/decrease-limits
@@ -143,6 +150,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-auth-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
@@ -160,6 +168,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-accounts-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/account-management-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
@@ -177,6 +186,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-documents-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-documents-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
@@ -194,6 +204,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-compensations-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-compensations-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
@@ -211,6 +222,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-finances-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-ui.git@/ci/values-custom.yaml?ref=feature/decrease-limits
