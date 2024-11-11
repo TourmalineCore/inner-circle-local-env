@@ -27,7 +27,6 @@ releases:
     chart: bitnami/postgresql
     version: 12.2.7
     values:
-      - values-postgre.yaml
       - values-postgre.yaml.gotmpl
 
   - name: inner-circle-auth-api
