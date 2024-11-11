@@ -3,3 +3,5 @@ extraConfigMapEnvVars:
     AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
     HttpUrls__AuthServiceUrl: "{{ .Values.authServiceUrl }}"
     HttpUrls__EmployeeServiceUrl: "{{ .Values.employeeServiceUrl }}"
+    AccountValidationOptions__CorporateEmailDomain: "@tourmalinecore.com"
+    AccountValidationOptions__IgnoreCorporateDomainValidationRule: "true"
