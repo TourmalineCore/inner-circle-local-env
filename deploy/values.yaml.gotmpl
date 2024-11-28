@@ -4,3 +4,7 @@ ingress:
     # to do not redirect from http to https
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
   tls: false
+
+service:
+  ports:
+    http: 40090
