@@ -173,7 +173,7 @@ releases:
       - inner-circle-accounts-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/account-management-ui.git@/ci/values-local-env.yaml?ref=feature/configure-resources-for-local-env
+      - git::https://github.com/TourmalineCore/accounts-ui.git@/ci/values-local-env.yaml?ref=feature/configure-resources-for-local-env
       - values.yaml.gotmpl
       - values-accounts-ui.yaml.gotmpl
 
