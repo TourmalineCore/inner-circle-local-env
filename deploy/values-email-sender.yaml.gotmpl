@@ -1,4 +1,5 @@
 extraConfigMapEnvVars:
+    ASPNETCORE_HTTP_PORTS: "80"
     MailSmtpOptions__Host: "{{ .Values.mailSmtpHost }}"
     MailSmtpOptions__Port: "{{ .Values.mailSmtpPort }}"
     MailSmtpOptions__FromEmail: "{{ .Values.fromEmail }}"
