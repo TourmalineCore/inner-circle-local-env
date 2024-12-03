@@ -18,9 +18,16 @@ Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode
 127.0.0.1       inner-circle.local.tourmalinecore.internal
 ```
 
+### For Windows
+
+Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode in e.g. `Notepad` and add the line.
+
 ### For MacOS
 
-https://www.hostinger.com/tutorials/how-to-edit-hosts-file-macos
+Execute the following command in terminal to open `hosts` file in sudo mode and add the line.
+```
+sudo nano /etc/hosts
+```
 
 ## VSCode Dev Container
 
