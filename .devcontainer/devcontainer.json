@@ -40,10 +40,6 @@
 	"runArgs": [
 		"--network=host"
 	],
-	// this tells kind where to look for the default config
-	"containerEnv": {
-		"KUBECONFIG": "/workspaces/inner-circle-local-env/.inner-circle-cluster-kubeconfig"
-	},
 	// this is to prevent the k8s cluster container from pausing when closing VSCode
 	"shutdownAction": "none"
 }

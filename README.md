@@ -38,34 +38,36 @@ When your Dev Container is ready, the VS Code window will be re-opened. Open a n
 ## Manage Local k8s Cluster
 
 ### Cluster Creation
-
+#### Kind
 To create a new cluster where you will work execute the following command **once**:
 
 ```bash
 kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
 ```
-
-### Cluster Removal
-
-To delete the previously created cluster by any reason execute the following command:
-
-```bash
-kind delete cluster --name inner-circle
-```
+#### Docker Desktop
+To create a new cluster in Docker Desktop, you should follow these steps:
+1. In Docker Desktop, go to settings (top left gear);
+2. In the settings on the right, select Kubernetes;
+3. Turn on Kubernetes (click on the “on/off" button);
+4. Apply the settings with the "Apply & restart" button.
 
 ### Cluster Connection
-
+#### Kind
 Then you should be able to go and grap the created k8s cluster config here in the root of the repo `.inner-circle-cluster-kubeconfig` and use it in `Lens` to connect to the cluster.
 
 In `Lens` you can go to `File` -> `Add Cluster` and put there the copied `config` file content and create it.
 Then you should be able to connect to it.
+#### Docker Desktop
+To connect to your Docker Desktop cluster, find kubeconfig there: `C:\Users\<YourUsername>\.kube\config ` (on Windows) or `Users/<yourusername>/.kube/config` (on macOS)
+And then follow the same steps described above.
 
 ### Deployment to Cluster
-
+#### Kind
 To deploy the stack to the cluster at the first time or re-deploy it after a change in charts or their configuration execute the following command:
 
 ```bash
-helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+helmfile cache cleanup && helmfile --kubeconfig $(pwd)/.inner-circle-cluster-kubeconfig --environment local --namespace local -f deploy/helmfile.yaml apply
+
 ```
 
 When the command is complete and all k8s pods are running inside **`local`** namespace you should be able to navigate to http://inner-circle.local.tourmalinecore.internal/ in your browser and see `Hello World`.
@@ -76,6 +78,15 @@ When the command is complete and all k8s pods are running inside **`local`** nam
 
 >Note: if one of your services version was updated e.g. a newer version was published to `inner-circle-ui:latest` you won't see the changes executing `helmfile apply` command. Instead you need to remove the respective service Pod that it can be re-created by its Deployment and fetch the latest docker image. 
 
+#### Docker Desktop
+To deploy the stack to the cluster at the first time or re-deploy it after a change in charts or their configuration, follow these steps:
+1. Get the cluster configuration from the folder `C:\Users\<YourUsername>\.kube\config ` (on Windows) or `Users/<yourusername>/.kube/config` (on macOS);
+2. Create file (without extension) in the local-env repository and paste the configuration from the last step;
+3. Deploy applications following this command
+```bash
+helmfile cache cleanup && helmfile --kubeconfig $(pwd)/<your-config-file-name> --environment local --namespace local -f deploy/helmfile.yaml apply
+```
+>Note: $(pwd) is used to get the full path to the file, because the –kubeconfig argument sets its value to the KUBECONFIG environment variable.
 ### Debugging Helm Charts
 
 To see how all charts manifest are going to look like before apply you can execute the following command:
@@ -111,6 +122,14 @@ helmfile cache cleanup && helmfile --environment local --namespace local -f depl
     1. Remove the `inner-circle-control-plane` docker container.
     2. Remove the cluster from Lens.
     3. Re-try over starting from `kind create` command.
+
+### Cluster Removal
+
+To delete the previously created cluster by any reason execute the following command:
+
+```bash
+kind delete cluster --name inner-circle
+```
 
 ## Useful Refs used to setup repo
 
