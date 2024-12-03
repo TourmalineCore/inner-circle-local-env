@@ -10,7 +10,7 @@ nodes:
   # this port is exposed from the cluster container
   - containerPort: 30080
     # host OS port which is called from the browser e.g. when UI is opened
-    hostPort: 40090
+    hostPort: 40100
     # listens to all interfaces
     listenAddress: "0.0.0.0"
   # open postgres db to the outside world that you can connect to the db from the outside of your local-env cluster
