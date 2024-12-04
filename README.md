@@ -66,8 +66,6 @@ To deploy the stack to the cluster at the first time or re-deploy it after a cha
 helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
 ```
 
-When the command is complete and all k8s pods are running inside **`local`** namespace you should be able to navigate to http://inner-circle.local.tourmalinecore.internal/ in your browser and see `Hello World`.
-
 >Note: at the first time this really takes a while.
 
 >Note: `helmfile cache cleanup` is needed to force to re-fetch remote values.yaml files from git repos. Otherwise it will never invalidate them. Links: https://github.com/roboll/helmfile/issues/720#issuecomment-1516613493 and https://helmfile.readthedocs.io/en/latest/#cache.
