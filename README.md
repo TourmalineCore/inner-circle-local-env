@@ -18,17 +18,16 @@ Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode
 127.0.0.1       inner-circle.local.tourmalinecore.internal
 ```
 
-### For Windows
-
-Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode in e.g. `Notepad` and add the line.
-
 ### For MacOS
 
-Execute the following command in terminal to open `hosts` file in sudo mode and add the line.
+Execute the following command in terminal to open `hosts` file in sudo mode:
 ```
 sudo nano /etc/hosts
 ```
-
+and add the line:
+```
+127.0.0.1       inner-circle.local.tourmalinecore.internal
+```
 ## VSCode Dev Container
 
 Open this repo's folder in VSCode, it might immediately propose you to re-open it in a Dev Container or you can click on `Remote Explorer`, find plus button and choose the `Open Current Folder in Container` option and wait when it is ready.
