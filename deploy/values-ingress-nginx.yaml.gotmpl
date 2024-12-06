@@ -4,6 +4,9 @@
 controller:
   service:
     type: NodePort
+    ports:
+      # -- Port the external HTTP listener is published with.
+      http: "40100"
     nodePorts:
       http: "30080"
       https: 

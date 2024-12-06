@@ -1,11 +1,30 @@
 # Local Kubernetes Environment
 
+## Table of contents
+
+- [Local Kubernetes Environment](#local-kubernetes-environment)
+  * [Table of contents](#table-of-contents)
+  * [Prerequisites](#prerequisites)
+  * [Register local artificial domain in hosts (DO ONLY ONCE)](#register-local-artificial-domain-in-hosts--do-only-once-)
+    + [For Windows](#for-windows)
+    + [For MacOS](#for-macos)
+  * [VSCode Dev Container](#vscode-dev-container)
+  * [Manage Local k8s Cluster](#manage-local-k8s-cluster)
+    + [Cluster Creation](#cluster-creation)
+    + [Cluster Connection](#cluster-connection)
+    + [Deployment to Cluster](#deployment-to-cluster)
+    + [Debugging Helm Charts](#debugging-helm-charts)
+    + [Cluster Removal](#cluster-removal)
+  * [Services URLs after cluster creation and service deployment](#services-urls-after-cluster-creation-and-service-deployment)
+  * [Troubleshooting](#troubleshooting)
+  * [Useful Refs used to setup repo](#useful-refs-used-to-setup-repo)
+  
 ## Prerequisites
 
 1. Install Docker
 2. Install Visual Studio Code
 3. Install Visual Studio Code [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Extension
-3. Install [Lens (commercial)](https://k8slens.dev/) or [OpenLens (open source)](https://github.com/MuhammedKalkan/OpenLens/releases)
+3. Install [Lens](https://k8slens.dev/) or [OpenLens](https://github.com/MuhammedKalkan/OpenLens/releases)
 
 ## Register local artificial domain in hosts (DO ONLY ONCE)
 
@@ -20,8 +39,14 @@ Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode
 
 ### For MacOS
 
-https://www.hostinger.com/tutorials/how-to-edit-hosts-file-macos
-
+Execute the following command in terminal to open `hosts` file in sudo mode:
+```
+sudo nano /etc/hosts
+```
+and add the line:
+```
+127.0.0.1       inner-circle.local.tourmalinecore.internal
+```
 ## VSCode Dev Container
 
 Open this repo's folder in VSCode, it might immediately propose you to re-open it in a Dev Container or you can click on `Remote Explorer`, find plus button and choose the `Open Current Folder in Container` option and wait when it is ready.
@@ -45,19 +70,11 @@ To create a new cluster where you will work execute the following command **once
 kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
 ```
 
-### Cluster Removal
-
-To delete the previously created cluster by any reason execute the following command:
-
-```bash
-kind delete cluster --name inner-circle
-```
-
 ### Cluster Connection
 
-Then you should be able to go and grap the created k8s cluster config here in the root of the repo `.inner-circle-cluster-kubeconfig` and use it in `Lens` to connect to the cluster.
+Then you should be able to go and grap the created k8s cluster config here in the root of the repo `.inner-circle-cluster-kubeconfig` and use it in `Lens` (or `OpenLens`) to connect to the cluster.
 
-In `Lens` you can go to `File` -> `Add Cluster` and put there the copied `config` file content and create it.
+In `Lens`/`OpenLens` you can go to `File` -> `Add Cluster` and put there the copied `config` file content and create it.
 Then you should be able to connect to it.
 
 ### Deployment to Cluster
@@ -67,8 +84,6 @@ To deploy the stack to the cluster at the first time or re-deploy it after a cha
 ```bash
 helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
 ```
-
-When the command is complete and all k8s pods are running inside **`local`** namespace you should be able to navigate to http://inner-circle.local.tourmalinecore.internal/ in your browser and see `Hello World`.
 
 >Note: at the first time this really takes a while.
 
@@ -84,10 +99,23 @@ To see how all charts manifest are going to look like before apply you can execu
 helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml template
 ```
 
-## Services URLs
+### Cluster Removal
 
-- ui: http://inner-circle.local.tourmalinecore.internal/
-- api: http://inner-circle.local.tourmalinecore.internal/api/
+To delete the previously created cluster by any reason execute the following command:
+
+```bash
+kind delete cluster --name inner-circle
+```
+
+
+## Services URLs after cluster creation and service deployment
+
+When the all k8s pods are running inside **`local`** namespace you should be able to navigate to this URL's in your browser and see Inner Circle.
+
+- UI: http://inner-circle.local.tourmalinecore.internal:40100/
+- API: http://inner-circle.local.tourmalinecore.internal:40100/api/
+
+
 
 ## Troubleshooting
 - OpenLens not showing any pods, deployments, etc.. Make sure the "Namespace" in view "Workloads" is set to "`local`" or "`All namespaces`"
@@ -111,6 +139,7 @@ helmfile cache cleanup && helmfile --environment local --namespace local -f depl
     1. Remove the `inner-circle-control-plane` docker container.
     2. Remove the cluster from Lens.
     3. Re-try over starting from `kind create` command.
+
 
 ## Useful Refs used to setup repo
 

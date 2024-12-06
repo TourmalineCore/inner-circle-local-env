@@ -1,5 +1,6 @@
 extraConfigMapEnvVars:
-    ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database={{ .Values.authDbName }};Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
+    ASPNETCORE_HTTP_PORTS: "80"
+    ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=auth-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
     AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
     AuthenticationOptions__PrivateSigningKey: "{{ .Values.privateSigningKey }}"
     InnerCircleServiceUrls__MailServiceUrl: "{{ .Values.mailServiceUrl }}"
