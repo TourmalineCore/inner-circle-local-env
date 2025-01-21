@@ -9,6 +9,9 @@ environments:
     values:
       - environments/{{ .Environment.Name }}/values.yaml.gotmpl
 
+helmDefaults:
+  timeout: 600
+  
 releases:
   - name: ingress-nginx
     labels:
