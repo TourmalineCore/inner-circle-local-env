@@ -10,7 +10,7 @@ environments:
       - environments/{{ .Environment.Name }}/values.yaml.gotmpl
 
 helmDefaults:
-  timeout: 600
+  timeout: 1200
   
 releases:
   - name: ingress-nginx
