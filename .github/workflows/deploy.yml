@@ -1,0 +1,21 @@
+name: Cypress E2E Tests Execution Against Local Env
+
+on:
+  push:
+    branches:
+      - experiment/*
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout local-env
+        uses: actions/checkout@v4
+
+      - name: Deploy Local Env to Kind k8s
+        uses: devcontainers/ci@v0.3
+        with:
+          runCmd: |
+            kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
+            helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+        push: never
