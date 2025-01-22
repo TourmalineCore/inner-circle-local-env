@@ -18,4 +18,4 @@ jobs:
           runCmd: |
             kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
             helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
-        push: never
+          push: never
