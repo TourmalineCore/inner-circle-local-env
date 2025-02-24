@@ -233,4 +233,20 @@ releases:
       - git::https://github.com/TourmalineCore/inner-circle-ui.git@/ci/values-local-env.yaml?ref=master
       - values.yaml.gotmpl
       - values-ui.yaml.gotmpl
-      
+
+  - name: inner-circle-layout-ui
+    labels:
+      app: inner-circle-layout-ui
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-layout-ui.git@/ci/values-local-env.yaml?ref=master
+      - values.yaml.gotmpl
+      - values-layout-ui.yaml.gotmpl
