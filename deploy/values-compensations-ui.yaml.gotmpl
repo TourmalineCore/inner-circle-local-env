@@ -6,9 +6,8 @@ extraConfigMapEnvVars:
   LINK_TO_ACCOUNT_SERVICE: "\"/account-management/\""
   LINK_TO_COMPENSATIONS_SERVICE: "\"/compensations/\""
 
-# for local image deploy uncomment this lines and change tag
-#image:
-# registry: ghcr.io
-# repository: "tourmalinecore/inner-circle-compensations-ui"
-# # Write tag of your image for deploy (change only symbols after "sha-")
-# tag: "sha-0d39ba7800cafcfbe8021cf8239bee84eb5d2d1e"
+image:
+ registry: ghcr.io
+ repository: "tourmalinecore/inner-circle-compensations-ui"
+ # Write tag of your image for deploy (change only symbols after "sha-")
+ tag: "sha-0d39ba7800cafcfbe8021cf8239bee84eb5d2d1e"
