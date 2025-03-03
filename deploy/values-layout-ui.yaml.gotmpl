@@ -1,5 +1,16 @@
+# for images that build in pipeline using specific sha commit
 image:
  registry: ghcr.io
  repository: "tourmalinecore/inner-circle-layout-ui"
  # Write tag of your image for deploy (change only symbols after "sha-")
- tag: "sha-0605e19931abc5c836d50e090733389ed867824b"
+ # tag: "sha-47871bf0292e4ab61f627e9d083f3f84a82a5139"
+ tag: "sha-${{ github.sha }}"
+
+# for local build images
+# use command for give this image to kind cluster: 
+# kind load docker-image my-layout:0.0.1 --name inner-circle
+#image:
+# registry: ""
+# repository: "my-layout"
+# tag: "0.0.15"
+# pullPolicy: "Never"
