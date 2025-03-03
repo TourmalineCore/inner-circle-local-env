@@ -250,3 +250,5 @@ releases:
       - git::https://github.com/TourmalineCore/inner-circle-layout-ui.git@/ci/values-local-env.yaml?ref={{ env "INNER_CIRCLE_LAYOUT_UI_BRANCH" | default "master" }}
       - values.yaml.gotmpl
       - values-layout-ui.yaml.gotmpl
+      - env:
+          IMAGE_SHA: {{ env "IMAGE_SHA" }}
