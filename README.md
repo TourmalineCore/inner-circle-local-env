@@ -18,6 +18,9 @@
   * [Services URLs after cluster creation and service deployment](#services-urls-after-cluster-creation-and-service-deployment)
   * [Troubleshooting](#troubleshooting)
   * [Useful Refs used to setup repo](#useful-refs-used-to-setup-repo)
+  * [Options of file values-layout-ui.yaml.gotmpl](#options-of-file-values-layout-uiyamlgotmpl)
+    + [For pipeline published image](#for-pipeline-published-image)
+    + [For local build image](#for-local-build-image)
   
 ## Prerequisites
 
@@ -148,3 +151,30 @@ When the all k8s pods are running inside **`local`** namespace you should be abl
 - https://github.com/kubernetes-sigs/kind/issues/3196
 - https://github.com/devcontainers/features
 - https://fenyuk.medium.com/helm-for-kubernetes-helmfile-c22d1ab5e604
+
+## Options of file values-layout-ui.yaml.gotmpl
+
+### Using specific Published Image from GitHub Registry
+If you want to deploy a specific image tag that published to github registry in pipeline from last commit, use the following configuration:
+ tagged with the latest commit from your pipeline, use the following configuration:
+
+```
+image:
+ registry: ghcr.io
+ repository: "tourmalinecore/inner-circle-layout-ui"
+ # Write tag of your image for deploy (change only symbols after "sha-")
+ tag: "sha-f1c1e64bcb3401f602ac3b2afdf6066c6e2d4876"
+```
+
+### Using a Local Docker Image
+If you are using a local Docker image, first load it into the kind cluster with the following command: `kind load docker-image my-layout:0.0.1 --name inner-circle `
+
+Then use this configuration for your values-layout-ui.yaml.gotmpl file:
+
+```
+image:
+  registry: ""
+  repository: "my-layout"
+  tag: "0.0.15"
+  pullPolicy: "Never"
+```
