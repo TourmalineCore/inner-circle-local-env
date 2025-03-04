@@ -190,7 +190,7 @@ Then use the following configuration for `values-your-service.yaml.gotmpl` file:
 image:
   registry: ""
   repository: "my-layout"
-  tag: "0.0.15"
+  tag: "0.0.1"
   pullPolicy: "Never"
 ```
 
