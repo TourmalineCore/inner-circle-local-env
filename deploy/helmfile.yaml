@@ -126,6 +126,24 @@ releases:
       - git::https://github.com/TourmalineCore/inner-circle-employees-api.git@/Api/ci/values-local-env.yaml?ref=master
       - values.yaml.gotmpl
       - values-employees-api.yaml.gotmpl
+  
+  - name: inner-circle-books-api
+    labels:
+      app: inner-circle-books-api
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+      - postgresql
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-books-api.git@/Api/ci/values-local-env.yaml?ref={{ env "INNER_CIRCLE_BOOKS_API_BRANCH" | default "master" }}
+      - values.yaml.gotmpl
+      - values-books-api.yaml.gotmpl
 
   - name: inner-circle-email-sender
     labels:
@@ -262,6 +280,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+    # - inner-circle-books-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values-local-env.yaml?ref={{ env "INNER_CIRCLE_BOOKS_UI_BRANCH" | default "master" }}
