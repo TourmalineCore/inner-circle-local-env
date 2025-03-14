@@ -67,7 +67,7 @@ releases:
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/accounts-api.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/accounts-api.git@/Api/ci/values-local-env.yaml?ref={{ env "ACCOUNTS_API_BRANCH" | default "master" }}
       - values.yaml.gotmpl
       - values-accounts-api.yaml.gotmpl
 
