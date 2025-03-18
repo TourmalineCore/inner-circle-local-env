@@ -3,6 +3,6 @@ extraConfigMapEnvVars:
     ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=accounts-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
     AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
     HttpUrls__AuthServiceUrl: "{{ .Values.authServiceUrl }}"
-    HttpUrls__EmployeeServiceUrl: "{{ .Values.employeesServiceUrl }}"
+    HttpUrls__EmployeesServiceUrl: "{{ .Values.employeesServiceUrl }}"
     AccountValidationOptions__CorporateEmailDomain: "@tourmalinecore.com"
     AccountValidationOptions__IgnoreCorporateDomainValidationRule: "true"
