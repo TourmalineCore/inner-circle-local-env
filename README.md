@@ -115,8 +115,8 @@ kind delete cluster --name inner-circle
 
 When the all k8s pods are running inside **`local`** namespace you should be able to navigate to this URL's in your browser and see Inner Circle.
 
-- UI: http://inner-circle.local.tourmalinecore.internal:40100/
-- API: http://inner-circle.local.tourmalinecore.internal:40100/api/
+- UI: http://inner-circle.local.tourmalinecore.internal:30090/
+- API: http://inner-circle.local.tourmalinecore.internal:30090/api/
 
 
 
