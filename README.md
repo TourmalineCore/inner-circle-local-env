@@ -5,9 +5,6 @@
 - [Local Kubernetes Environment](#local-kubernetes-environment)
   * [Table of contents](#table-of-contents)
   * [Prerequisites](#prerequisites)
-  * [Register local artificial domain in hosts (DO ONLY ONCE)](#register-local-artificial-domain-in-hosts--do-only-once-)
-    + [For Windows](#for-windows)
-    + [For MacOS](#for-macos)
   * [VSCode Dev Container](#vscode-dev-container)
   * [Manage Local k8s Cluster](#manage-local-k8s-cluster)
     + [Cluster Creation](#cluster-creation)
@@ -29,27 +26,6 @@
 3. Install Visual Studio Code [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Extension
 3. Install [Lens](https://k8slens.dev/) or [OpenLens](https://github.com/MuhammedKalkan/OpenLens/releases)
 
-## Register local artificial domain in hosts (DO ONLY ONCE)
-
-To be able to open locally the app you need to add its domain to your OS `hosts`.
-
-### For Windows
-
-Open this file `C:\Windows\System32\drivers\etc\hosts` in **Administrator** mode in e.g. `Notepad` and add the following line to it:
-```
-127.0.0.1       inner-circle.local.tourmalinecore.internal
-```
-
-### For MacOS
-
-Execute the following command in terminal to open `hosts` file in sudo mode:
-```
-sudo nano /etc/hosts
-```
-and add the line:
-```
-127.0.0.1       inner-circle.local.tourmalinecore.internal
-```
 ## VSCode Dev Container
 
 Open this repo's folder in VSCode, it might immediately propose you to re-open it in a Dev Container or you can click on `Remote Explorer`, find plus button and choose the `Open Current Folder in Container` option and wait when it is ready.
@@ -110,22 +86,19 @@ To delete the previously created cluster by any reason execute the following com
 kind delete cluster --name inner-circle
 ```
 
-
 ## Services URLs after cluster creation and service deployment
 
 When the all k8s pods are running inside **`local`** namespace you should be able to navigate to this URL's in your browser and see Inner Circle.
 
-- UI: http://inner-circle.local.tourmalinecore.internal:30090/
-- API: http://inner-circle.local.tourmalinecore.internal:30090/api/
-
-
+- UI: http://localhost:30090/
+- API: http://localhost:30090/api/
 
 ## Troubleshooting
 - OpenLens not showing any pods, deployments, etc.. Make sure the "Namespace" in view "Workloads" is set to "`local`" or "`All namespaces`"
 
-- cannot open http://inner-circle.local.tourmalinecore.internal/
+- cannot open http://localhost/
     ```
-    This site can’t be reached inner-circle.local.tourmalinecore.internal refused to connect.
+    This site can’t be reached localhost refused to connect.
     ```
     if you see this in your browser please try to open in Incognito Mode
 - cannot install inner-circle-ui chart
