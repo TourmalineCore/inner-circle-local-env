@@ -1,4 +1,4 @@
-name: Cypress E2E Tests Execution Against Local Env
+name: E2E Tests Execution Against Local Env
 
 on:
   push:
