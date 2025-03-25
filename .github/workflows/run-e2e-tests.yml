@@ -50,6 +50,11 @@ jobs:
 
     # KARATE API TESTS
 
+    - name: Checkout Accounts API
+      uses: actions/checkout@v4
+      with:
+        repository: TourmalineCore/accounts-api
+
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
@@ -60,11 +65,6 @@ jobs:
       run: |
         curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
        
-    - name: Checkout Accounts API
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/accounts-api
-
     - name: Karate Run Against Accounts API
       run: |
         java -jar karate.jar .
