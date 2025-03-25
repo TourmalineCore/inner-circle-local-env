@@ -46,7 +46,7 @@ jobs:
       with:
         config-file: cypress.config.local-env.ts
     
-    - name: Checkout Acounts API
+    - name: Checkout Accounts API
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/accounts-api
@@ -61,12 +61,27 @@ jobs:
       run: |
         curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
     
-    - name: Run Karate Tests
+    - name: Karate Run Against Accounts API
       run: |
         java -jar karate.jar .
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
         API_ROOT_URL: "http://localhost:30090/api"
+        AUTH_LOGIN: "ceo@tourmalinecore.com"
+        AUTH_PASSWORD: "cEoPa$$wo1d"
+        SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
+    
+    - name: Checkout Books API
+      uses: actions/checkout@v4
+      with:
+        repository: TourmalineCore/inner-circle-books-api
+  
+    - name: Karate Run Against Books API
+      run: |
+        java -jar karate.jar .
+      env:
+        AUTH_API_ROOT_URL: "http://localhost:30090/api"
+        API_ROOT_URL: "http://localhost:30090"
         AUTH_LOGIN: "ceo@tourmalinecore.com"
         AUTH_PASSWORD: "cEoPa$$wo1d"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
