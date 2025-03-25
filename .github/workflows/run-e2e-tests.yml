@@ -80,6 +80,16 @@ jobs:
       with:
         repository: TourmalineCore/inner-circle-books-api
   
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+      
+    - name: Download Karate JAR
+      run: |
+        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
+       
     - name: Karate Run Against Books API
       run: |
         java -jar karate.jar .
