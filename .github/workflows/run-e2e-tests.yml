@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-    - name: Checkout Local Env Repository
+    - name: Checkout Local Env
       uses: actions/checkout@v4
 
     - name: Deploy Local Env to Kind k8s
@@ -22,7 +22,7 @@ jobs:
         # we don't need to push docker image that was built using our Dev Container
         push: never
 
-    - name: Checkout Compensations UI Repository
+    - name: Checkout Compensations UI
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/inner-circle-compensations-ui
@@ -31,12 +31,22 @@ jobs:
     # for the sake of simlicity it is kept like this here
     # however, in production with longer pipelines: more services and more tests it will most likely start causing issues
     # creation of the cluster and deployment to it should be in the same step as the e2e tests running 
-    - name: Cypress run
+    - name: Cypress Run Against Compensations UI
+      uses: cypress-io/github-action@v6
+      with:
+        config-file: cypress.config.local-env.ts
+
+    - name: Checkout Books UI
+      uses: actions/checkout@v4
+      with:
+        repository: TourmalineCore/inner-circle-books-ui
+
+    - name: Cypress Run Against Books UI
       uses: cypress-io/github-action@v6
       with:
         config-file: cypress.config.local-env.ts
     
-    - name: Checkout Acounts API Repository
+    - name: Checkout Acounts API
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/accounts-api
