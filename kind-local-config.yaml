@@ -8,9 +8,9 @@ nodes:
   extraPortMappings:
   # containerPort has to be the same port that is configured in values-ingress-nginx
   # this port is exposed from the cluster container
-  - containerPort: 30080
+  - containerPort: 30090
     # host OS port which is called from the browser e.g. when UI is opened
-    hostPort: 40100
+    hostPort: 30090
     # listens to all interfaces
     listenAddress: "0.0.0.0"
   # open postgres db to the outside world that you can connect to the db from the outside of your local-env cluster
