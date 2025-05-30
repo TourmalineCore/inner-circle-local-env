@@ -49,6 +49,16 @@ To create a new cluster where you will work execute the following command **once
 kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
 ```
 
+### Using Docker Desktop Cluster
+
+1. In Docker Desktop, go to settings (the gear on the top left);
+2. Select Kubernetes in the settings on the right;
+3. Turn on Kubernetes;
+4. Apply the settings with the “Apply & restart” button;
+5. Create `.to-dos-cluster-kubeconfig` file in this repo root folder;
+6. Go to your system user `.kube` folder and open `config` file (on Windows: `C:/Users/<USERNAME>/.kube`, on masOS `Users/<USERNAME>/.kube/config`);
+7. Copy this config file content and paste to `.to-dos-cluster-kubeconfig` file, created in the first step.
+
 ### Cluster Connection
 
 Then you should be able to go and grap the created k8s cluster config here in the root of the repo `.inner-circle-cluster-kubeconfig` and use it in `Lens` (or `OpenLens`) to connect to the cluster.
