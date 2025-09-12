@@ -45,6 +45,7 @@ releases:
       - ingress-nginx
       - inner-circle-accounts-api
       - inner-circle-email-sender
+      - inner-circle-employees-api
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
@@ -138,6 +139,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
+      - inner-circle-employees-api
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
