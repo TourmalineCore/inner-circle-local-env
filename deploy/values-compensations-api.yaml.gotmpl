@@ -2,5 +2,5 @@ extraConfigMapEnvVars:
     ASPNETCORE_HTTP_PORTS: "80"
     ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=compensations-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
     AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
+    AuthenticationOptions__IsDebugTokenEnabled: "false"
     InnerCircleServiceUrls__EmployeesServiceUrl: "{{ .Values.employeesServiceUrl }}"
-    AUTH_REQUEST_HEADER: "Authorization"
