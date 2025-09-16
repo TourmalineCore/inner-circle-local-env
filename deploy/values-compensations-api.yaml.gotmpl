@@ -3,5 +3,4 @@ extraConfigMapEnvVars:
     ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=compensations-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
     AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
     InnerCircleServiceUrls__EmployeesServiceUrl: "{{ .Values.employeesServiceUrl }}"
-    AUTH_REQUEST_HEADER: "Authorization"
     AuthenticationOptions__IsDebugTokenEnabled: "false"
