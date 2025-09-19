@@ -32,9 +32,9 @@ releases:
     values:
       - values-postgre.yaml.gotmpl
 
-  - name: inner-circle-auth-api
+  - name: auth-api
     labels:
-      app: inner-circle-auth-api
+      app: auth-api
     wait: true
     chart: bitnami/nginx
     # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
@@ -175,7 +175,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
-      - inner-circle-auth-api
+      - auth-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values-local-env.yaml?ref=master
