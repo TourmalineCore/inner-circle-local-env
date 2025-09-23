@@ -285,6 +285,6 @@ releases:
     # - inner-circle-books-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values-local-env.yaml?ref={{ env "INNER_CIRCLE_BOOKS_UI_BRANCH" | default "master" }}
+      - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values-local-env.yaml?ref=master
       - values.yaml.gotmpl
       - values-books-ui.yaml.gotmpl
