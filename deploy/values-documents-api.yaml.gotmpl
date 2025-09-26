@@ -4,3 +4,6 @@ extraConfigMapEnvVars:
     AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
     InnerCircleServiceUrls__EmployeesServiceUrl: "{{ .Values.employeesServiceUrl }}"
     InnerCircleServiceUrls__EmailSenderServiceUrl: "{{ .Values.mailServiceUrl }}"
+
+image:
+	tag: "latest"
