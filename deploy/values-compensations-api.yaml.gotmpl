@@ -1,3 +1,6 @@
+image:
+  tag: "latest"
+
 extraConfigMapEnvVars:
     ASPNETCORE_HTTP_PORTS: "80"
     ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=compensations-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
