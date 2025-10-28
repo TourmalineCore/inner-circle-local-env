@@ -19,8 +19,6 @@ jobs:
         runCmd: |
           kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
           helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
-
-          kubectl logs $(kubectl get pods -l app.kubernetes.io/instance=auth-api -n local -o jsonpath='{.items[0].metadata.name}') -n local
         # we don't need to push docker image that was built using our Dev Container
         push: never
 
