@@ -15,7 +15,6 @@ jobs:
 
     - name: Deploy Local Env to Kind k8s
       uses: devcontainers/ci@v0.3
-      continue-on-error: true
       with:
         runCmd: |
           kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
