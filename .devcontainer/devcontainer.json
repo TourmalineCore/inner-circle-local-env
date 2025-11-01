@@ -52,5 +52,15 @@
 		"KUBECONFIG": "/workspaces/inner-circle-local-env/.inner-circle-cluster-kubeconfig"
 	},
 	// this is to prevent the k8s cluster container from pausing when closing VSCode
-	"shutdownAction": "none"
+	"shutdownAction": "none",
+	// open the cluster port to support auto-forwarding, e.g. in case of Codespaces run
+	"forwardPorts": [
+		30090
+	],
+	"portsAttributes": {
+		"30090": {
+			"label": "Dev Container Local Env Running Port",
+			"requireLocalPort": true
+		}
+	},
 }
