@@ -288,3 +288,10 @@ releases:
       - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values-local-env.yaml?ref=master
       - values.yaml.gotmpl
       - values-books-ui.yaml.gotmpl
+
+  - name: create-test-accounts
+    chart: ./jobs
+    labels:
+      app: create-test-accounts
+    needs:
+      - inner-circle-accounts-api
