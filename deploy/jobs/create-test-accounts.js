@@ -1,31 +1,13 @@
-const BASE_AUTH_URL = process.env.AUTH_API_URL
-const BASE_ACCOUNTS_URL = process.env.ACCOUNTS_API_URL
-const BASE_CHANGE_PASSWORD_URL = process.env.CHANGE_PASSWORD_URL
-const BASE_RESET_PASSWORD_URL = process.env.RESET_PASSWORD_URL
+const fs = require('fs');
+const path = require('path');
 
-const LOGIN_CREDENTIALS = {
-  login: "ceo@tourmalinecore.com",
-  password: "cEoPa$$wo1d",
-};
+const configPath = path.join(__dirname, 'test-accounts-config.json');
+const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
 
-const TEST_ACCOUNTS = [
-  {
-    corporateEmail: "test1@tourmalinecore.com",
-    firstName: "Test1",
-    lastName: "One",
-    middleName: "User",
-    roleIds: [2],
-    tenantId: "2",
-  },
-  {
-    corporateEmail: "test2@tourmalinecore.com",
-    firstName: "Test2",
-    lastName: "Two",
-    middleName: "User",
-    roleIds: [2],
-    tenantId: "2",
-  },
-];
+const BASE_AUTH_URL = process.env.AUTH_API_URL;
+const BASE_ACCOUNTS_URL = process.env.ACCOUNTS_API_URL;
+const BASE_CHANGE_PASSWORD_URL = process.env.CHANGE_PASSWORD_URL;
+const BASE_RESET_PASSWORD_URL = process.env.RESET_PASSWORD_URL;
 
 async function fetchJson(url, options = {}) {
   const res = await fetch(url, {
@@ -52,7 +34,7 @@ async function loginAndGetToken() {
   console.log(`🟡 Logging in to auth service at ${BASE_AUTH_URL}...`);
   const data = await fetchJson(BASE_AUTH_URL, {
     method: "POST",
-    body: JSON.stringify(LOGIN_CREDENTIALS),
+    body: JSON.stringify(config.loginCredentials),
   });
 
   const token = data?.accessToken?.value;
@@ -80,7 +62,7 @@ async function getResetToken(corporateEmail) {
   }
 }
 
-async function changePassword(corporateEmail) {
+async function changePassword(corporateEmail, newPassword) {
   console.log(`🟡 Changing password for ${corporateEmail}...`);
   const resetToken = await getResetToken(corporateEmail);
   if (!resetToken) {
@@ -94,7 +76,7 @@ async function changePassword(corporateEmail) {
       body: JSON.stringify({
         corporateEmail,
         passwordResetToken: resetToken,
-        newPassword: "Test123!5673Th",
+        newPassword,
       }),
     });
     console.log(`✅ Password changed for ${corporateEmail}`);
@@ -111,11 +93,11 @@ async function ensureTestAccounts(token) {
 
   const existingEmails = accounts.map((a) => a.corporateEmail);
 
-  for (const acc of TEST_ACCOUNTS) {
+  for (const acc of config.testAccounts) {
     const email = acc.corporateEmail;
     if (existingEmails.includes(email)) {
       console.log(`✅ Account ${email} already exists`);
-      await changePassword(email);
+      await changePassword(email, acc.newPassword);
       continue;
     }
 
@@ -127,7 +109,7 @@ async function ensureTestAccounts(token) {
     });
     console.log(`✅ Account ${email} created successfully`);
 
-    await changePassword(email);
+    await changePassword(email, acc.newPassword);
   }
 
   console.log("✨ All test accounts ensured and passwords updated");

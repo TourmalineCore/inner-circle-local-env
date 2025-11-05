@@ -1,0 +1,26 @@
+{
+  "loginCredentials": {
+    "login": "ceo@tourmalinecore.com",
+    "password": "cEoPa$$wo1d"
+  },
+  "testAccounts": [
+    {
+      "corporateEmail": "test1@tourmalinecore.com",
+      "firstName": "Test1",
+      "lastName": "One",
+      "middleName": "User",
+      "roleIds": [2],
+      "tenantId": "2",
+      "newPassword": "Test123!5673Th3"
+    },
+    {
+      "corporateEmail": "test2@tourmalinecore.com",
+      "firstName": "Test2",
+      "lastName": "Two",
+      "middleName": "User",
+      "roleIds": [2],
+      "tenantId": "2",
+      "newPassword": "Test123!5673Th3"
+    }
+  ]
+}
