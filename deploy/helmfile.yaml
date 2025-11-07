@@ -295,3 +295,8 @@ releases:
       app: create-test-accounts
     needs:
       - inner-circle-accounts-api
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "sh"
+        args: ["-c", "docker build -t create-test-accounts-for-local-env:0.0.1 ./jobs && kind load docker-image create-test-accounts-for-local-env:0.0.1 -n inner-circle"]

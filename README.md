@@ -170,9 +170,9 @@ helmfile -e local -n local -f deploy/helmfile.yaml destroy
 
 kubectl delete job create-test-accounts -n local
 
-docker rmi my-script:0.0.1
+docker rmi create-test-accounts-for-local-env:0.0.1
 
-docker exec inner-circle-control-plane crictl rmi my-script:0.0.1
+docker exec inner-circle-control-plane crictl rmi create-test-accounts-for-local-env:0.0.1
 
 docker build -t my-auth-api:0.0.1 -f deploy/jobs/Dockerfile .
 
