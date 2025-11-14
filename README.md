@@ -161,32 +161,6 @@ To deploy local Docker image, first load it into the kind cluster using the foll
 kind load docker-image your-local-image:your-tag --name your-cluster-name
 ```
 
-For example
-
-```
-
-
-helmfile -e local -n local -f deploy/helmfile.yaml destroy
-
-kubectl delete job create-test-accounts -n local
-
-docker rmi create-test-accounts-for-local-env:0.0.1
-
-docker exec inner-circle-control-plane crictl rmi create-test-accounts-for-local-env:0.0.1
-
-docker build -t my-auth-api:0.0.1 -f deploy/jobs/Dockerfile .
-
-kind load docker-image my-auth-api:0.0.1 --name inner-circle
-
-helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
-
-kubectl logs job/create-test-accounts -n local -f
-
-kubectl delete pvc --all -n local ????/
-
-
-```
-
 Then use the following configuration for `values-your-service.yaml.gotmpl` file:
 
 ```
@@ -198,3 +172,18 @@ image:
 ```
 
 repository and tag are `your-local-image` and `your-tag` from deploy command
+
+
+### job
+
+after helm apply the job is considered completed, so you need to uninstall chart (and job in this chart) locally and run helm apply again for it to work. it needs to execute it again because otherwise it will not restart if it has already been completed
+
+```
+helm uninstall create-test-accounts -n local
+```
+
+command to see job logs
+
+```
+kubectl logs job/create-test-accounts -n local -f
+```
