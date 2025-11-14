@@ -299,4 +299,5 @@ releases:
       - events: ["prepare"]
         showlogs: true
         command: "sh"
+        # build docker image and load it to cluster
         args: ["-c", "docker build -t create-test-accounts-for-local-env:0.0.1 ./jobs && kind load docker-image create-test-accounts-for-local-env:0.0.1 -n inner-circle"]
