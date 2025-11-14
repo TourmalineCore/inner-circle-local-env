@@ -1,10 +1,13 @@
+image:
+  tag: "latest"
+
 extraConfigMapEnvVars:
-    ASPNETCORE_HTTP_PORTS: "80"
-    MailSmtpOptions__Host: "{{ .Values.mailSmtpHost }}"
-    MailSmtpOptions__Port: "{{ .Values.mailSmtpPort }}"
-    MailSmtpOptions__FromEmail: "{{ .Values.fromEmail }}"
-    MailSmtpOptions__FromPassword: "{{ .Values.fromPassword }}"
-    SendGridOptions__SendGridAPIKey: "{{ .Values.sendGridAPIKey }}"
-    SendGridOptions__SenderEmail: "{{ .Values.senderEmail }}"
-    SendGridOptions__SenderName: "{{ .Values.senderName }}"
-    ASPNETCORE_ENVIRONMENT: "Debug"
+  ASPNETCORE_HTTP_PORTS: "80"
+  MailSmtpOptions__Host: "{{ .Values.mailSmtpHost }}"
+  MailSmtpOptions__Port: "{{ .Values.mailSmtpPort }}"
+  MailSmtpOptions__FromEmail: "{{ .Values.fromEmail }}"
+  MailSmtpOptions__FromPassword: "{{ .Values.fromPassword }}"
+  SendGridOptions__SendGridAPIKey: "{{ .Values.sendGridAPIKey }}"
+  SendGridOptions__SenderEmail: "{{ .Values.senderEmail }}"
+  SendGridOptions__SenderName: "{{ .Values.senderName }}"
+  ASPNETCORE_ENVIRONMENT: "Debug"
