@@ -24,7 +24,6 @@ async function main() {
 }
 
 async function loginAndGetToken() {
-  console.log(`Logging in to auth service at ${BASE_AUTH_URL}...`)
   const data = await fetchJson(BASE_AUTH_URL, {
     method: `POST`,
     body: JSON.stringify(config.loginCredentials),
@@ -37,7 +36,6 @@ async function loginAndGetToken() {
 }
 
 async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
-  console.log(`Fetching existing accounts from ${BASE_ACCOUNTS_URL}/accounts/all...`)
   const accounts = await fetchJson(`${BASE_ACCOUNTS_URL}/accounts/all`, {
     headers: {
       Authorization: token, 
@@ -72,24 +70,25 @@ async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
     })
     console.log(`Account ${email} created successfully`)
 
-    await setPassword(email, account.newPassword)
+    await setPassword(token, email, account.newPassword)
   }
 
   console.log(`All test accounts created and passwords updated`)
 }
 
-async function setPassword(corporateEmail, newPassword) {
-  console.log(`Setting password for ${corporateEmail}...`)
-
+async function setPassword(token, corporateEmail, newPassword) {
   try {
     await fetchJson(BASE_SET_PASSWORD_URL, {
       method: `POST`,
+      headers: {
+        Authorization: token, 
+      },
       body: JSON.stringify({
         corporateEmail,
         newPassword,
       }),
     })
-    console.log(`Password setted for ${corporateEmail}`)
+    console.log(`Password set for ${corporateEmail}`)
   }
   catch (e) {
     console.warn(`Failed to set password for ${corporateEmail}: ${e.message}`)
@@ -119,8 +118,6 @@ async function fetchJson(url, options = {}) {
 }
 
 async function createTestTenants(token) {
-  console.log(`Fetching existing tenants from ${BASE_ACCOUNTS_URL}/tenants/all...`)
-  
   const tenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
     headers: {
       Authorization: token, 
@@ -139,7 +136,6 @@ async function createTestTenants(token) {
       continue
     }
 
-    console.log(`Creating tenant ${tenantName}...`)
     await fetchJson(`${BASE_ACCOUNTS_URL}/tenants`, {
       method: `POST`,
       headers: {
@@ -159,7 +155,6 @@ async function createTestTenants(token) {
     tenantsIdsMap[tenant.name] = tenant.id
   }
 
-  console.log(`All test tenants created:\n`, tenantsIdsMap)
   return tenantsIdsMap
 }
 
