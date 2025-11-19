@@ -73,7 +73,7 @@ async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
     await setPassword(token, email, account.newPassword)
   }
 
-  console.log(`All test accounts created and passwords updated`)
+  console.log(`All test accounts created!`)
 }
 
 async function setPassword(token, corporateEmail, newPassword) {
