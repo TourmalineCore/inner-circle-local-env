@@ -147,6 +147,24 @@ releases:
       - values.yaml.gotmpl
       - values-books-api.yaml.gotmpl
 
+  - name: inner-circle-items-api
+    labels:
+      app: inner-circle-items-api
+    wait: true
+    chart: bitnami/aspnet-core
+    version: 4.4.7
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+      - inner-circle-employees-api
+      - postgresql
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-items-api.git@/ci/values.yaml?ref=master
+      - values.yaml.gotmpl
+      - values-items-api.yaml.gotmpl
+
   - name: inner-circle-email-sender
     labels:
       app: inner-circle-email-sender
@@ -294,6 +312,7 @@ releases:
     labels:
       app: create-test-accounts
     needs:
+      - auth-api
       - inner-circle-accounts-api
     hooks:
       - events: ["prepare"]
