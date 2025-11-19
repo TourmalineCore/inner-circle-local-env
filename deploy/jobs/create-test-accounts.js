@@ -35,6 +35,80 @@ async function loginAndGetToken() {
   return `Bearer ${token}`
 }
 
+async function createTestTenants(token) {
+  const tenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
+    headers: {
+      Authorization: token, 
+    },
+  })
+
+  const tenantsIdsMap = {}
+  for (const tenant of tenants) {
+    tenantsIdsMap[tenant.name] = tenant.id
+  }
+
+  for (const tenant of config.testTenants) {
+    const tenantName = tenant.name
+
+    if (tenantsIdsMap[tenantName]) {
+      continue
+    }
+
+    await fetchJson(`${BASE_ACCOUNTS_URL}/tenants`, {
+      method: `POST`,
+      headers: {
+        Authorization: token, 
+      },
+      body: JSON.stringify(tenant),
+    })
+  }
+
+  const newTenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
+    headers: {
+      Authorization: token, 
+    },
+  })
+
+  for (const tenant of newTenants) {
+    tenantsIdsMap[tenant.name] = tenant.id
+  }
+
+  return tenantsIdsMap
+}
+
+async function createTestRoles(token) {
+  const roles = await fetchJson(`${BASE_ACCOUNTS_URL}/roles`, {
+    headers: {
+      Authorization: token, 
+    },
+  })
+
+  const rolesIdsMap = {}
+  for (const role of roles) {
+    rolesIdsMap[role.name] = role.id
+  }
+
+  for (const role of config.testRoles) {
+    const roleName = role.name
+
+    if (rolesIdsMap[roleName]) {
+      continue
+    }
+
+    const createdId = await fetchJson(`${BASE_ACCOUNTS_URL}/roles/create`, {
+      method: `POST`,
+      headers: {
+        Authorization: token, 
+      },
+      body: JSON.stringify(role),
+    })
+
+    rolesIdsMap[roleName] = createdId
+  }
+
+  return rolesIdsMap
+}
+
 async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
   const accounts = await fetchJson(`${BASE_ACCOUNTS_URL}/accounts/all`, {
     headers: {
@@ -115,80 +189,6 @@ async function fetchJson(url, options = {}) {
   catch {
     return {}
   }
-}
-
-async function createTestTenants(token) {
-  const tenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
-    headers: {
-      Authorization: token, 
-    },
-  })
-
-  const tenantsIdsMap = {}
-  for (const tenant of tenants) {
-    tenantsIdsMap[tenant.name] = tenant.id
-  }
-
-  for (const tenant of config.testTenants) {
-    const tenantName = tenant.name
-
-    if (tenantsIdsMap[tenantName]) {
-      continue
-    }
-
-    await fetchJson(`${BASE_ACCOUNTS_URL}/tenants`, {
-      method: `POST`,
-      headers: {
-        Authorization: token, 
-      },
-      body: JSON.stringify(tenant),
-    })
-  }
-
-  const newTenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
-    headers: {
-      Authorization: token, 
-    },
-  })
-
-  for (const tenant of newTenants) {
-    tenantsIdsMap[tenant.name] = tenant.id
-  }
-
-  return tenantsIdsMap
-}
-
-async function createTestRoles(token) {
-  const roles = await fetchJson(`${BASE_ACCOUNTS_URL}/roles`, {
-    headers: {
-      Authorization: token, 
-    },
-  })
-
-  const rolesIdsMap = {}
-  for (const role of roles) {
-    rolesIdsMap[role.name] = role.id
-  }
-
-  for (const role of config.testRoles) {
-    const roleName = role.name
-
-    if (rolesIdsMap[roleName]) {
-      continue
-    }
-
-    const createdId = await fetchJson(`${BASE_ACCOUNTS_URL}/roles/create`, {
-      method: `POST`,
-      headers: {
-        Authorization: token, 
-      },
-      body: JSON.stringify(role),
-    })
-
-    rolesIdsMap[roleName] = createdId
-  }
-
-  return rolesIdsMap
 }
 
 main()
