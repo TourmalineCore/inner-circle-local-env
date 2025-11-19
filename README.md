@@ -176,7 +176,7 @@ repository and tag are `your-local-image` and `your-tag` from deploy command
 
 ### job
 
-after helm apply the job is considered completed, so you need to uninstall chart (and job in this chart) locally and run helm apply again for it to work. it needs to execute it again because otherwise it will not restart if it has already been completed
+after helm apply the job is considered completed, so you need to remove release from lens or uninstall chart (and job in this chart) locally and run helm apply again for it to work. it needs to execute it again because otherwise it will not restart if it has already been completed
 
 ```
 helm uninstall create-test-accounts -n local

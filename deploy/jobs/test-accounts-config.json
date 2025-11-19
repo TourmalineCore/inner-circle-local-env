@@ -39,15 +39,12 @@
   ],
   "testTenants": [
     {
-      "id": 1,
       "name": "Gryffindor"
     },
     {
-      "id": 2,
       "name": "AUTO_TESTS_ONLY Slytherin"
     },
     {
-      "id": 3,
       "name": "AUTO_TESTS_ONLY Ravenclaw"
     }
   ],
