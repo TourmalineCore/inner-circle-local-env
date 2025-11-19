@@ -5,22 +5,58 @@
   },
   "testAccounts": [
     {
-      "corporateEmail": "test1@tourmalinecore.com",
-      "firstName": "Test1",
-      "lastName": "One",
-      "middleName": "User",
-      "roleIds": [2],
-      "tenantId": "2",
-      "newPassword": "Test123!5673Th3"
+      "corporateEmail": "potter@tourmalinecore.com",
+      "firstName": "Harry",
+      "lastName": "Potter",
+      "roleName": "CEO",
+      "tenantName": "Gryffindor",
+      "newPassword": "Patronum1!"
     },
     {
-      "corporateEmail": "test2@tourmalinecore.com",
-      "firstName": "Test2",
-      "lastName": "Two",
-      "middleName": "User",
-      "roleIds": [2],
-      "tenantId": "2",
-      "newPassword": "Test123!5673Th3"
+      "corporateEmail": "malfoy@tourmalinecore.com",
+      "firstName": "Draco",
+      "lastName": "Malfoy",
+      "roleName": "CEO",
+      "tenantName": "AUTO_TESTS_ONLY Slytherin",
+      "newPassword": "Serpens1!"
+    },
+    {
+      "corporateEmail": "chang@tourmalinecore.com",
+      "firstName": "Cho",
+      "lastName": "Chang",
+      "roleName": "CEO",
+      "tenantName": "AUTO_TESTS_ONLY Ravenclaw",
+      "newPassword": "Reparo1!"
+    },
+    {
+      "corporateEmail": "goyle@tourmalinecore.com",
+      "firstName": "Gregory",
+      "lastName": "Goyle",
+      "roleName": "AUTO_TESTS_ONLY Single Permission Role",
+      "tenantName": "AUTO_TESTS_ONLY Slytherin",
+      "newPassword": "Crucio1!"
+    }
+  ],
+  "testTenants": [
+    {
+      "id": 1,
+      "name": "Gryffindor"
+    },
+    {
+      "id": 2,
+      "name": "AUTO_TESTS_ONLY Slytherin"
+    },
+    {
+      "id": 3,
+      "name": "AUTO_TESTS_ONLY Ravenclaw"
+    }
+  ],
+  "testRoles": [
+    {
+      "name": "AUTO_TESTS_ONLY Single Permission Role",
+      "permissions": [
+        "ViewPersonalProfile"
+      ]
     }
   ]
 }

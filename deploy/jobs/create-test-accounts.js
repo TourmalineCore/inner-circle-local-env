@@ -12,10 +12,13 @@ const BASE_RESET_PASSWORD_URL = process.env.RESET_PASSWORD_URL
 async function main() {
   try {
     const token = await loginAndGetToken()
-    await ensureTestAccounts(token)
+    const tenantIdsMap = await createTestTenants(token)
+    const rolesIdsMap = await createTestRoles(token)
+
+    await createTestAccounts(token, tenantIdsMap, rolesIdsMap)
   }
   catch (err) {
-    console.error(`Error ensuring test accounts:`)
+    console.error(`Error creating test accounts:`)
     console.error(err.message)
     process.exit(1)
   }
@@ -35,9 +38,9 @@ async function loginAndGetToken() {
   return `Bearer ${token}`
 }
 
-async function ensureTestAccounts(token) {
-  console.log(`Fetching existing accounts from ${BASE_ACCOUNTS_URL}/all...`)
-  const accounts = await fetchJson(`${BASE_ACCOUNTS_URL}/all`, {
+async function createTestAccounts(token, tenantIdsMap, rolesIdsMap) {
+  console.log(`Fetching existing accounts from ${BASE_ACCOUNTS_URL}accounts/all...`)
+  const accounts = await fetchJson(`${BASE_ACCOUNTS_URL}accounts/all`, {
     headers: {
       Authorization: token, 
     },
@@ -48,39 +51,38 @@ async function ensureTestAccounts(token) {
   for (const acc of config.testAccounts) {
     const email = acc.corporateEmail
 
-    // Why do we need to change password for already created accounts?
-    // find by logging the reason why we need to local remove chart and delete this step
     if (existingEmails.includes(email)) {
-      console.log(`✅ Account ${email} already exists`)
-      await changePassword(email, acc.newPassword)
+      console.log(`Account ${email} already exists`)
       continue
     }
+    const existingTenantId = tenantIdsMap[acc.tenantName]
 
-    console.log(`Creating account ${email}...`)
-    await fetchJson(`${BASE_ACCOUNTS_URL}/create`, {
+    const existingRoleId = rolesIdsMap[acc.roleName]
+
+    await fetchJson(`${BASE_ACCOUNTS_URL}accounts/create`, {
       method: `POST`,
       headers: {
         Authorization: token, 
       },
-      body: JSON.stringify(acc),
+      body: JSON.stringify({
+        ...acc,
+        tenantId: existingTenantId,
+        roleIds: [
+          existingRoleId,
+        ],
+      }),
     })
     console.log(`Account ${email} created successfully`)
 
     await changePassword(email, acc.newPassword)
   }
 
-  console.log(`All test accounts ensured and passwords updated`)
+  console.log(`All test accounts created and passwords updated`)
 }
 
 async function changePassword(corporateEmail, newPassword) {
   console.log(`Changing password for ${corporateEmail}...`)
   const passwordResetToken = await getResetToken(corporateEmail)
-
-  // after logging remove this step too
-  if (!passwordResetToken) {
-    console.warn(`Skipping password change for ${corporateEmail} (no reset token)`)
-    return
-  }
 
   try {
     await fetchJson(BASE_CHANGE_PASSWORD_URL, {
@@ -137,6 +139,84 @@ async function fetchJson(url, options = {}) {
   catch {
     return {}
   }
+}
+
+async function createTestTenants(token) {
+  console.log(`Fetching existing tenants from ${BASE_ACCOUNTS_URL}tenants/all...`)
+  
+  const tenants = await fetchJson(`${BASE_ACCOUNTS_URL}tenants/all`, {
+    headers: {
+      Authorization: token, 
+    },
+  })
+
+  const tenantIdsMap = {}
+  for (const tenant of tenants) {
+    tenantIdsMap[tenant.name] = tenant.id
+  }
+
+  for (const tenant of config.testTenants) {
+    const tenantName = tenant.name
+
+    if (tenantIdsMap[tenantName]) {
+      console.log(`Tenant ${tenantName} already exists with id ${tenantIdsMap[tenantName]}`)
+      continue
+    }
+
+    console.log(`Creating tenant ${tenantName}...`)
+    await fetchJson(`${BASE_ACCOUNTS_URL}tenants`, {
+      method: `POST`,
+      headers: {
+        Authorization: token, 
+      },
+      body: JSON.stringify(tenant),
+    })
+  }
+
+  const newTenants = await fetchJson(`${BASE_ACCOUNTS_URL}tenants/all`, {
+    headers: { Authorization: token },
+  })
+
+  for (const tenant of newTenants) {
+    tenantIdsMap[tenant.name] = tenant.id
+  }
+
+  console.log(`All test tenants created:\n`, tenantIdsMap)
+  return tenantIdsMap
+}
+
+async function createTestRoles(token) {
+  const roles = await fetchJson(`${BASE_ACCOUNTS_URL}roles`, {
+    headers: {
+      Authorization: token, 
+    },
+  })
+
+  const rolesIdsMap = {}
+
+  for (const role of roles) {
+    rolesIdsMap[role.name] = role.id
+  }
+
+  for (const role of config.testRoles) {
+    const roleName = role.name
+
+    if (rolesIdsMap[roleName]) {
+      continue
+    }
+
+    const createdId = await fetchJson(`${BASE_ACCOUNTS_URL}roles/create`, {
+      method: `POST`,
+      headers: {
+        Authorization: token, 
+      },
+      body: JSON.stringify(role),
+    })
+
+    rolesIdsMap[roleName] = createdId
+  }
+
+  return rolesIdsMap
 }
 
 main()
