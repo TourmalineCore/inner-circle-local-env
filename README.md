@@ -161,12 +161,6 @@ To deploy local Docker image, first load it into the kind cluster using the foll
 kind load docker-image your-local-image:your-tag --name your-cluster-name
 ```
 
-For example
-
-```
-kind load docker-image my-layout:0.0.1 --name inner-circle
-```
-
 Then use the following configuration for `values-your-service.yaml.gotmpl` file:
 
 ```
@@ -178,3 +172,18 @@ image:
 ```
 
 repository and tag are `your-local-image` and `your-tag` from deploy command
+
+
+### job
+
+after helm apply the job is considered completed, so you need to remove release from lens or uninstall chart (and job in this chart) locally and run helm apply again for it to work. it needs to execute it again because otherwise it will not restart if it has already been completed
+
+```
+helm uninstall create-test-accounts -n local
+```
+
+command to see job logs
+
+```
+kubectl logs job/create-test-accounts -n local -f
+```

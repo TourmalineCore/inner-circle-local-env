@@ -1,0 +1,5 @@
+apiVersion: v2
+name: create-test-accounts
+description: Ensures test accounts exist in local env
+type: application
+version: 0.1.0

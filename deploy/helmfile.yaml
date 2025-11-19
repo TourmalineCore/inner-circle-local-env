@@ -288,3 +288,16 @@ releases:
       - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values-local-env.yaml?ref=master
       - values.yaml.gotmpl
       - values-books-ui.yaml.gotmpl
+
+  - name: create-test-accounts
+    chart: ./jobs
+    labels:
+      app: create-test-accounts
+    needs:
+      - inner-circle-accounts-api
+    hooks:
+      - events: ["prepare"]
+        showlogs: true
+        command: "sh"
+        # build docker image and load it to cluster
+        args: ["-c", "docker build -t create-test-accounts-for-local-env:0.0.1 ./jobs && kind load docker-image create-test-accounts-for-local-env:0.0.1 -n inner-circle"]

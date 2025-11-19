@@ -1,0 +1,5 @@
+image:
+  registry: ""
+  repository: "create-test-accounts-for-local-env"
+  tag: "0.0.1"
+  pullPolicy: "Never"

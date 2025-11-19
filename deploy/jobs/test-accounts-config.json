@@ -1,0 +1,59 @@
+{
+  "loginCredentials": {
+    "login": "ceo@tourmalinecore.com",
+    "password": "cEoPa$$wo1d"
+  },
+  "testAccounts": [
+    {
+      "corporateEmail": "potter@tourmalinecore.com",
+      "firstName": "Harry",
+      "lastName": "Potter",
+      "roleName": "CEO",
+      "tenantName": "Gryffindor",
+      "newPassword": "Patronum1!"
+    },
+    {
+      "corporateEmail": "malfoy@tourmalinecore.com",
+      "firstName": "Draco",
+      "lastName": "Malfoy",
+      "roleName": "CEO",
+      "tenantName": "AUTO_TESTS_ONLY Slytherin",
+      "newPassword": "Serpens1!"
+    },
+    {
+      "corporateEmail": "chang@tourmalinecore.com",
+      "firstName": "Cho",
+      "lastName": "Chang",
+      "roleName": "CEO",
+      "tenantName": "AUTO_TESTS_ONLY Ravenclaw",
+      "newPassword": "Reparo1!"
+    },
+    {
+      "corporateEmail": "goyle@tourmalinecore.com",
+      "firstName": "Gregory",
+      "lastName": "Goyle",
+      "roleName": "AUTO_TESTS_ONLY Single Permission Role",
+      "tenantName": "AUTO_TESTS_ONLY Slytherin",
+      "newPassword": "Crucio1!"
+    }
+  ],
+  "testTenants": [
+    {
+      "name": "Gryffindor"
+    },
+    {
+      "name": "AUTO_TESTS_ONLY Slytherin"
+    },
+    {
+      "name": "AUTO_TESTS_ONLY Ravenclaw"
+    }
+  ],
+  "testRoles": [
+    {
+      "name": "AUTO_TESTS_ONLY Single Permission Role",
+      "permissions": [
+        "ViewPersonalProfile"
+      ]
+    }
+  ]
+}
