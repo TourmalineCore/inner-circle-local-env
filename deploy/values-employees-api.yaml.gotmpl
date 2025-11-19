@@ -1,4 +1,7 @@
+image:
+  tag: "latest"
+
 extraConfigMapEnvVars:
-    ASPNETCORE_HTTP_PORTS: "80"
-    ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=employees-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
-    AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
+  ASPNETCORE_HTTP_PORTS: "80"
+  ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=employees-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
+  AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
