@@ -1,0 +1,11 @@
+image:
+  tag: "latest"
+
+extraConfigMapEnvVars:
+  ASPNETCORE_HTTP_PORTS: "80"
+  AuthenticationOptions__IsDebugTokenEnabled: "false"
+  ExternalDepsUrls__EmployeesApiRootUrl: "{{ .Values.employeesServiceUrl }}"
+
+extraSecretEnvVars:
+  ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=items-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
+  AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
