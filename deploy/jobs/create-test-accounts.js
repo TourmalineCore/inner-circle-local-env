@@ -10,16 +10,11 @@ const BASE_ACCOUNTS_URL = process.env.ACCOUNTS_API_URL
 async function main() {
   try {
     const token = await loginAndGetToken()
-    console.log(`Token received successfully`)
 
     const tenantsIdsMap = await createTestTenants(token)
-    console.log(`Tenants created`)
-
     const rolesIdsMap = await createTestRoles(token)
-    console.log(`Roles created`)
 
     await createTestAccounts(token, tenantsIdsMap, rolesIdsMap)
-    console.log(`All test accounts created!`)
   }
   catch (err) {
     console.error(`Error creating test accounts:`)
@@ -38,6 +33,8 @@ async function loginAndGetToken() {
 
   const token = data?.accessToken?.value
   if (!token) throw new Error(`Token not found in auth response`)
+
+  console.log(`Token received successfully`)
 
   return `Bearer ${token}`
 }
@@ -161,10 +158,13 @@ async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
         ],
       }),
     })
+
     console.log(`Account ${email} created successfully`)
 
     await setPassword(token, email, account.newPassword)
   }
+
+  console.log(`All test accounts created!`)
 }
 
 async function setPassword(token, corporateEmail, newPassword) {
@@ -181,7 +181,7 @@ async function setPassword(token, corporateEmail, newPassword) {
         newPassword,
       }),
     })
-    console.log(`Password set for ${corporateEmail}`)
+    console.log(`Password is set for ${corporateEmail}`)
   }
   catch (e) {
     console.warn(`Failed to set password for ${corporateEmail}: ${e.message}`)
