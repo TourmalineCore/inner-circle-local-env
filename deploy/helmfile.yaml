@@ -300,7 +300,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
-    # - inner-circle-books-api
+      - inner-circle-books-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values-local-env.yaml?ref=master
