@@ -10,10 +10,16 @@ const BASE_ACCOUNTS_URL = process.env.ACCOUNTS_API_URL
 async function main() {
   try {
     const token = await loginAndGetToken()
+    console.log(`Token received successfully`)
+
     const tenantsIdsMap = await createTestTenants(token)
+    console.log(`Tenants created`)
+
     const rolesIdsMap = await createTestRoles(token)
+    console.log(`Roles created`)
 
     await createTestAccounts(token, tenantsIdsMap, rolesIdsMap)
+    console.log(`All test accounts created!`)
   }
   catch (err) {
     console.error(`Error creating test accounts:`)
@@ -23,6 +29,8 @@ async function main() {
 }
 
 async function loginAndGetToken() {
+  console.log(`Getting token...`)
+
   const data = await fetchJson(`${BASE_AUTH_URL}/login`, {
     method: `POST`,
     body: JSON.stringify(config.loginCredentials),
@@ -35,6 +43,8 @@ async function loginAndGetToken() {
 }
 
 async function createTestTenants(token) {
+  console.log(`Start creating tenants...`)
+
   const tenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
     headers: {
       Authorization: token, 
@@ -50,6 +60,7 @@ async function createTestTenants(token) {
     const tenantName = tenant.name
 
     if (tenantsIdsMap[tenantName]) {
+      console.log(`Tenant ${tenantName} already exists`)
       continue
     }
 
@@ -60,6 +71,8 @@ async function createTestTenants(token) {
       },
       body: JSON.stringify(tenant),
     })
+
+    console.log(`Tenant ${tenantName} created successfully`)
   }
 
   const newTenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
@@ -76,6 +89,8 @@ async function createTestTenants(token) {
 }
 
 async function createTestRoles(token) {
+  console.log(`Start creating roles...`)
+
   const roles = await fetchJson(`${BASE_ACCOUNTS_URL}/roles`, {
     headers: {
       Authorization: token, 
@@ -91,6 +106,7 @@ async function createTestRoles(token) {
     const roleName = role.name
 
     if (rolesIdsMap[roleName]) {
+      console.log(`Role ${roleName} already exists`)
       continue
     }
 
@@ -102,6 +118,8 @@ async function createTestRoles(token) {
       body: JSON.stringify(role),
     })
 
+    console.log(`Role ${roleName} created successfully`)
+
     rolesIdsMap[roleName] = createdId
   }
 
@@ -109,6 +127,8 @@ async function createTestRoles(token) {
 }
 
 async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
+  console.log(`Start creating accounts...`)
+
   const accounts = await fetchJson(`${BASE_ACCOUNTS_URL}/accounts/all`, {
     headers: {
       Authorization: token, 
@@ -145,11 +165,11 @@ async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
 
     await setPassword(token, email, account.newPassword)
   }
-
-  console.log(`All test accounts created!`)
 }
 
 async function setPassword(token, corporateEmail, newPassword) {
+  console.log(`Setting password for ${corporateEmail}...`)
+
   try {
     await fetchJson(`${BASE_AUTH_URL}/set-password`, {
       method: `POST`,
@@ -186,6 +206,7 @@ async function fetchJson(url, options = {}) {
     return await res.json()
   }
   catch {
+    // Avoid crashing and return an empty object if response has no JSON body
     return {}
   }
 }
