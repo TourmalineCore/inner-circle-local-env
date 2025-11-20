@@ -6,7 +6,6 @@ const config = JSON.parse(fs.readFileSync(configPath, `utf8`))
 
 const BASE_AUTH_URL = process.env.AUTH_API_URL
 const BASE_ACCOUNTS_URL = process.env.ACCOUNTS_API_URL
-const BASE_SET_PASSWORD_URL = process.env.SET_PASSWORD_URL
 
 async function main() {
   try {
@@ -24,7 +23,7 @@ async function main() {
 }
 
 async function loginAndGetToken() {
-  const data = await fetchJson(BASE_AUTH_URL, {
+  const data = await fetchJson(`${BASE_AUTH_URL}/login`, {
     method: `POST`,
     body: JSON.stringify(config.loginCredentials),
   })
@@ -152,7 +151,7 @@ async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
 
 async function setPassword(token, corporateEmail, newPassword) {
   try {
-    await fetchJson(BASE_SET_PASSWORD_URL, {
+    await fetchJson(`${BASE_AUTH_URL}/set-password`, {
       method: `POST`,
       headers: {
         Authorization: token, 

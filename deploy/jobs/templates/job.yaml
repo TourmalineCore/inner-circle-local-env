@@ -12,8 +12,6 @@ spec:
           image: create-test-accounts-for-local-env:0.0.1
           env:
             - name: AUTH_API_URL
-              value: "http://auth-api-nginx:30090/api/auth/login"
+              value: "http://auth-api-nginx:30090/api/auth"
             - name: ACCOUNTS_API_URL
-              value: "http://inner-circle-accounts-api-nginx:30090/api"            
-            - name: SET_PASSWORD_URL
-              value: "http://auth-api-nginx:30090/api/auth/set-password"
+              value: "http://inner-circle-accounts-api-nginx:30090/api"
