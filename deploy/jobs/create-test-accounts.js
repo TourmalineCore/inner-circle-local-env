@@ -6,11 +6,11 @@ const config = JSON.parse(fs.readFileSync(configPath, `utf8`))
 
 const BASE_AUTH_URL = process.env.AUTH_API_URL
 const BASE_ACCOUNTS_URL = process.env.ACCOUNTS_API_URL
-const BASE_SET_PASSWORD_URL = process.env.SET_PASSWORD_URL
 
 async function main() {
   try {
     const token = await loginAndGetToken()
+
     const tenantsIdsMap = await createTestTenants(token)
     const rolesIdsMap = await createTestRoles(token)
 
@@ -24,7 +24,9 @@ async function main() {
 }
 
 async function loginAndGetToken() {
-  const data = await fetchJson(BASE_AUTH_URL, {
+  console.log(`Getting token...`)
+
+  const data = await fetchJson(`${BASE_AUTH_URL}/login`, {
     method: `POST`,
     body: JSON.stringify(config.loginCredentials),
   })
@@ -32,10 +34,14 @@ async function loginAndGetToken() {
   const token = data?.accessToken?.value
   if (!token) throw new Error(`Token not found in auth response`)
 
+  console.log(`Token received successfully`)
+
   return `Bearer ${token}`
 }
 
 async function createTestTenants(token) {
+  console.log(`Start creating tenants...`)
+
   const tenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
     headers: {
       Authorization: token, 
@@ -51,6 +57,7 @@ async function createTestTenants(token) {
     const tenantName = tenant.name
 
     if (tenantsIdsMap[tenantName]) {
+      console.log(`Tenant ${tenantName} already exists`)
       continue
     }
 
@@ -61,6 +68,8 @@ async function createTestTenants(token) {
       },
       body: JSON.stringify(tenant),
     })
+
+    console.log(`Tenant ${tenantName} created successfully`)
   }
 
   const newTenants = await fetchJson(`${BASE_ACCOUNTS_URL}/tenants/all`, {
@@ -77,6 +86,8 @@ async function createTestTenants(token) {
 }
 
 async function createTestRoles(token) {
+  console.log(`Start creating roles...`)
+
   const roles = await fetchJson(`${BASE_ACCOUNTS_URL}/roles`, {
     headers: {
       Authorization: token, 
@@ -92,6 +103,7 @@ async function createTestRoles(token) {
     const roleName = role.name
 
     if (rolesIdsMap[roleName]) {
+      console.log(`Role ${roleName} already exists`)
       continue
     }
 
@@ -103,6 +115,8 @@ async function createTestRoles(token) {
       body: JSON.stringify(role),
     })
 
+    console.log(`Role ${roleName} created successfully`)
+
     rolesIdsMap[roleName] = createdId
   }
 
@@ -110,6 +124,8 @@ async function createTestRoles(token) {
 }
 
 async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
+  console.log(`Start creating accounts...`)
+
   const accounts = await fetchJson(`${BASE_ACCOUNTS_URL}/accounts/all`, {
     headers: {
       Authorization: token, 
@@ -142,6 +158,7 @@ async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
         ],
       }),
     })
+
     console.log(`Account ${email} created successfully`)
 
     await setPassword(token, email, account.newPassword)
@@ -151,8 +168,10 @@ async function createTestAccounts(token, tenantsIdsMap, rolesIdsMap) {
 }
 
 async function setPassword(token, corporateEmail, newPassword) {
+  console.log(`Setting password for ${corporateEmail}...`)
+
   try {
-    await fetchJson(BASE_SET_PASSWORD_URL, {
+    await fetchJson(`${BASE_AUTH_URL}/set-password`, {
       method: `POST`,
       headers: {
         Authorization: token, 
@@ -162,7 +181,7 @@ async function setPassword(token, corporateEmail, newPassword) {
         newPassword,
       }),
     })
-    console.log(`Password set for ${corporateEmail}`)
+    console.log(`Password is set for ${corporateEmail}`)
   }
   catch (e) {
     console.warn(`Failed to set password for ${corporateEmail}: ${e.message}`)
@@ -187,6 +206,7 @@ async function fetchJson(url, options = {}) {
     return await res.json()
   }
   catch {
+    // Avoid crashing and return an empty object if response has no JSON body
     return {}
   }
 }
