@@ -1,6 +1,15 @@
 image:
   tag: "latest"
 
+ingress:
+  annotations:
+    # configuration-snippet is used to redirect from /b to /books saving query args
+    nginx.ingress.kubernetes.io/configuration-snippet: "location ~ ^/b(/|$) { return 302 {{ .Values.baseExternalUrl }}/books$2$is_args$args; }"
+  extraHosts:
+    # additional host needed to set up redirect
+    - name: "localhost"
+      path: "\"/b(/|$)(.*)\""
+
 extraConfigMapEnvVars:
   API_ROOT: "\"{{ .Values.baseExternalUrl }}/api\""
   API_ROOT_AUTH: "\"{{ .Values.baseExternalUrl }}/api/auth\""
