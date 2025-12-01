@@ -321,7 +321,7 @@ releases:
       # - inner-circle-time-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-time-ui.git@/ci/values.yaml?ref=feature/init-project
+      - git::https://github.com/TourmalineCore/inner-circle-time-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-time-ui.yaml.gotmpl
 
