@@ -64,6 +64,16 @@ jobs:
       with:
         config-file: cypress.config.local-env.ts
 
+    - name: Checkout Time UI
+      uses: actions/checkout@v4
+      with:
+        repository: TourmalineCore/inner-circle-time-ui
+
+    - name: Cypress Run Against Time UI
+      uses: cypress-io/github-action@v6
+      with:
+        config-file: cypress.config.local-env.ts
+
     # KARATE API TESTS
 
     - name: Checkout Accounts API
