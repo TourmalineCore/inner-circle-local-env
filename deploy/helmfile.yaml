@@ -49,7 +49,7 @@ releases:
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/auth-api.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/auth-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-auth-api.yaml.gotmpl
 
@@ -68,7 +68,7 @@ releases:
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/accounts-api.git@/Api/ci/values-local-env.yaml?ref={{ env "ACCOUNTS_API_BRANCH" | default "master" }}
+      - git::https://github.com/TourmalineCore/accounts-api.git@/Api/ci/values.yaml?ref={{ env "ACCOUNTS_API_BRANCH" | default "master" }}
       - values.yaml.gotmpl
       - values-accounts-api.yaml.gotmpl
 
@@ -87,7 +87,7 @@ releases:
       - inner-circle-email-sender
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-documents-api.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-documents-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-documents-api.yaml.gotmpl
 
@@ -106,7 +106,7 @@ releases:
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-compensations-api.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-compensations-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-compensations-api.yaml.gotmpl
 
@@ -124,7 +124,7 @@ releases:
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-employees-api.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-employees-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-employees-api.yaml.gotmpl
   
@@ -143,7 +143,7 @@ releases:
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-books-api.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-books-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-books-api.yaml.gotmpl
 
@@ -178,7 +178,7 @@ releases:
       - ingress-nginx
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-email-sender.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-email-sender.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-email-sender.yaml.gotmpl
 
@@ -196,7 +196,7 @@ releases:
       - auth-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-auth-ui.yaml.gotmpl
 
@@ -214,7 +214,7 @@ releases:
       - inner-circle-accounts-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/accounts-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/accounts-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-accounts-ui.yaml.gotmpl
 
@@ -232,7 +232,7 @@ releases:
       - inner-circle-documents-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-documents-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-documents-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-documents-ui.yaml.gotmpl
 
@@ -250,7 +250,7 @@ releases:
       - inner-circle-compensations-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-compensations-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-compensations-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-compensations-ui.yaml.gotmpl
 
@@ -268,7 +268,7 @@ releases:
       - inner-circle-employees-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-ui.yaml.gotmpl
 
@@ -285,7 +285,7 @@ releases:
       - ingress-nginx
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-layout-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-layout-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-layout-ui.yaml.gotmpl
 
@@ -303,7 +303,7 @@ releases:
       - inner-circle-books-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-books-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-books-ui.yaml.gotmpl
 
