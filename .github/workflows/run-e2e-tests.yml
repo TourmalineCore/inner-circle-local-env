@@ -67,7 +67,7 @@ jobs:
     - name: Checkout Auth UI
       uses: actions/checkout@v4
       with:
-        repository: TourmalineCore/inner-circle-auth-ui
+        repository: TourmalineCore/auth-ui
 
     - name: Cypress Run Against Auth UI
       uses: cypress-io/github-action@v6
@@ -87,7 +87,7 @@ jobs:
     - name: Checkout Accounts UI
       uses: actions/checkout@v4
       with:
-        repository: TourmalineCore/inner-circle-accounts-ui
+        repository: TourmalineCore/accounts-ui
 
     - name: Cypress Run Against Accounts UI
       uses: cypress-io/github-action@v6
@@ -217,7 +217,7 @@ jobs:
     - name: Checkout Auth API
       uses: actions/checkout@v4
       with:
-        repository: TourmalineCore/inner-circle-auth-api
+        repository: TourmalineCore/auth-api
   
     - name: Set up JDK 17
       uses: actions/setup-java@v3
