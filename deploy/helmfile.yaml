@@ -178,7 +178,7 @@ releases:
       - ingress-nginx
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-email-sender.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-email-sender.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-email-sender.yaml.gotmpl
 
