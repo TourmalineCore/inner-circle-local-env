@@ -137,8 +137,8 @@ jobs:
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
         API_ROOT_URL: "http://localhost:30090/api"
-        AUTH_LOGIN: "ceo@tourmalinecore.com"
-        AUTH_PASSWORD: "cEoPa$$wo1d"
+        AUTH_LOGIN: "malfoy@tourmalinecore.com"
+        AUTH_PASSWORD: "Serpens1!"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Books API
@@ -162,8 +162,8 @@ jobs:
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api"
         API_ROOT_URL: "http://localhost:30090"
-        AUTH_LOGIN: "ceo@tourmalinecore.com"
-        AUTH_PASSWORD: "cEoPa$$wo1d"
+        AUTH_LOGIN: "malfoy@tourmalinecore.com"
+        AUTH_PASSWORD: "Serpens1!"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Compensations API
