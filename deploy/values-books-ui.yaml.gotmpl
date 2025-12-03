@@ -16,7 +16,5 @@ ingress:
             name: http
 
 extraConfigMapEnvVars:
-  API_ROOT: "\"{{ .Values.baseExternalUrl }}/api\""
-  API_ROOT_AUTH: "\"{{ .Values.baseExternalUrl }}/api/auth\""
-  LINK_TO_BOOKS_SERVICE: "\"/books/\""
-  VITE_BASE_URL: "\"{{ .Values.baseExternalUrl }}\""
+  API_ROOT_URL: "\"{{ .Values.baseExternalUrl }}/api/books\""
+  AUTH_API_ROOT_URL: "\"{{ .Values.baseExternalUrl }}/api/auth\""
