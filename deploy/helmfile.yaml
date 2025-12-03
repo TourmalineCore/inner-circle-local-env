@@ -196,7 +196,7 @@ releases:
       - auth-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-auth-ui.yaml.gotmpl
 
@@ -214,7 +214,7 @@ releases:
       - inner-circle-accounts-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/accounts-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/accounts-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-accounts-ui.yaml.gotmpl
 
@@ -232,7 +232,7 @@ releases:
       - inner-circle-documents-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-documents-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-documents-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-documents-ui.yaml.gotmpl
 
@@ -268,7 +268,7 @@ releases:
       - inner-circle-employees-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-ui.yaml.gotmpl
 
@@ -285,7 +285,7 @@ releases:
       - ingress-nginx
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-layout-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-layout-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-layout-ui.yaml.gotmpl
 
