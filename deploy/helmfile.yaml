@@ -124,7 +124,7 @@ releases:
       - postgresql
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-employees-api.git@/Api/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/inner-circle-employees-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-employees-api.yaml.gotmpl
   
