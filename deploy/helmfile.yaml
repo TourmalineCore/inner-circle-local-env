@@ -196,7 +196,7 @@ releases:
       - auth-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values-local-env.yaml?ref=master
+      - git::https://github.com/TourmalineCore/auth-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-auth-ui.yaml.gotmpl
 
