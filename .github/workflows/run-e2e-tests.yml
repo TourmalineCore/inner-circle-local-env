@@ -188,7 +188,7 @@ jobs:
         "AUTH_LOGIN": "malfoy@tourmalinecore.com"
         "AUTH_PASSWORD": "Serpens1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api"
-        "API_ROOT_URL": "http://localhost:30090/api"
+        "API_ROOT_URL": "http://localhost:30090"
 
     - name: Checkout Employees API
       uses: actions/checkout@v4
