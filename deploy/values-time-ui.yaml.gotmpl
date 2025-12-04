@@ -1,0 +1,6 @@
+image:
+  tag: "latest"
+
+extraConfigMapEnvVars:
+  API_ROOT_URL: "\"{{ .Values.baseExternalUrl }}/api/time\""
+  AUTH_API_ROOT_URL: "\"{{ .Values.baseExternalUrl }}/api/auth\""
