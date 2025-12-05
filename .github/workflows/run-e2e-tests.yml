@@ -34,6 +34,7 @@ jobs:
         runCmd: |
           kind create cluster --name inner-circle --config kind-local-config.yaml --kubeconfig ./.inner-circle-cluster-kubeconfig
           helmfile cache cleanup && helmfile --environment local --namespace local -f deploy/helmfile.yaml apply
+          kubectl get pods -A
         # in the first step that runs inside Dev Container we push the image we built to re-use cache in other services pipelines
         # we newer push in the next steps, only use the cache if available
         push: always
