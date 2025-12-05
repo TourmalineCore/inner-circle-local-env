@@ -1,5 +1,5 @@
 # Local Kubernetes Environment
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/TourmalineCore/inner-circle-local-env)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/TourmalineCore/inner-circle-local-env?quickstart=1)
 ## Table of contents
 
 - [Local Kubernetes Environment](#local-kubernetes-environment)
