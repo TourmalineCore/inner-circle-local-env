@@ -49,6 +49,9 @@ jobs:
         runCmd: |
           kubectl get pods -A
 
+    - name: curl
+      run: curl localhost:30090
+
     # CYPRESS UI TESTS
 
     - name: Checkout Compensations UI
