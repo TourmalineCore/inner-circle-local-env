@@ -116,15 +116,21 @@ jobs:
 
     # KARATE API TESTS
 
+    # Set up JDK 17 once for all API tests
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
       
+    # Download Karate JAR once for all API tests and save it to /tmp/karate.jar
+    # The /tmp folder is chosen because
+    # 1. It always exists on Linux and is writable
+    # 2. It is independent of the current working directory, allowing use the same file for all api tests, even if the working directory changes
+    # 3. This avoids duplicate downloads of the JAR file for each API
     - name: Download Karate JAR
       run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o /karate/karate.jar
+        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o /tmp/karate.jar
        
     - name: Checkout Accounts API
       uses: actions/checkout@v4
@@ -133,7 +139,7 @@ jobs:
 
     - name: Karate Run Against Accounts API
       run: |
-        java -jar /karate/karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
         API_ROOT_URL: "http://localhost:30090/api"
@@ -148,7 +154,7 @@ jobs:
         
     - name: Karate Run Against Books API
       run: |
-        java -jar /karate/karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api"
         API_ROOT_URL: "http://localhost:30090"
@@ -163,7 +169,7 @@ jobs:
       
     - name: Karate Run Against Compensations API
       run: |
-        java -jar /karate/karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         "AUTH_LOGIN": "malfoy@tourmalinecore.com"
         "AUTH_PASSWORD": "Serpens1!"
@@ -177,7 +183,7 @@ jobs:
    
     - name: Karate Run Against Employees API
       run: |
-        java -jar /karate/karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         "AUTH_LOGIN": "malfoy@tourmalinecore.com"
         "AUTH_PASSWORD": "Serpens1!"
@@ -191,7 +197,7 @@ jobs:
     
     - name: Karate Run Against Auth API
       run: |
-        java -jar /karate/karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         "AUTH_LOGIN": "malfoy@tourmalinecore.com"
         "AUTH_PASSWORD": "Serpens1!"
@@ -204,7 +210,7 @@ jobs:
   
     - name: Karate Run Against Documents API
       run: |
-        java -jar /karate/karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         "AUTH_LOGIN": "malfoy@tourmalinecore.com"
         "AUTH_PASSWORD": "Serpens1!"
@@ -218,7 +224,7 @@ jobs:
    
     - name: Karate Run Against Items API
       run: |
-        java -jar /karate/karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
         "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
