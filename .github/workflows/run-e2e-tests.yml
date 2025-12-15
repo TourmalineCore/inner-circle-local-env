@@ -116,11 +116,6 @@ jobs:
 
     # KARATE API TESTS
 
-    - name: Checkout Accounts API
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/accounts-api
-
     - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
@@ -131,6 +126,11 @@ jobs:
       run: |
         curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
        
+    - name: Checkout Accounts API
+      uses: actions/checkout@v4
+      with:
+        repository: TourmalineCore/accounts-api
+
     - name: Karate Run Against Accounts API
       run: |
         java -jar karate.jar .
@@ -145,17 +145,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/inner-circle-books-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+        
     - name: Karate Run Against Books API
       run: |
         java -jar karate.jar .
@@ -170,17 +160,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/inner-circle-compensations-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
       
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
     - name: Karate Run Against Compensations API
       run: |
         java -jar karate.jar .
@@ -194,17 +174,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/inner-circle-employees-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+   
     - name: Karate Run Against Employees API
       run: |
         java -jar karate.jar .
@@ -218,17 +188,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/auth-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+    
     - name: Karate Run Against Auth API
       run: |
         java -jar karate.jar .
@@ -242,16 +202,6 @@ jobs:
       with:
         repository: TourmalineCore/inner-circle-documents-api
   
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
     - name: Karate Run Against Documents API
       run: |
         java -jar karate.jar .
@@ -265,17 +215,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: TourmalineCore/inner-circle-items-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+   
     - name: Karate Run Against Items API
       run: |
         java -jar karate.jar .
