@@ -2,4 +2,6 @@ image:
   tag: "latest"
 
 extraConfigMapEnvVars:
+  API_ROOT_URL: "{{ .Values.baseExternalUrl }}/api/auth"
+  # Remove after merge https://github.com/TourmalineCore/auth-ui/pull/31
   API_ROOT: "\"{{ .Values.baseExternalUrl }}/api\""
