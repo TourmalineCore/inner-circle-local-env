@@ -5,7 +5,7 @@ extraConfigMapEnvVars:
   API_ROOT_URL: "{{ .Values.baseExternalUrl }}/api/documents"
   AUTH_API_ROOT_URL: "{{ .Values.baseExternalUrl }}/api/auth"
 
-  # Remove after merge https://github.com/TourmalineCore/inner-circle-ui/pull/118
+  # Remove after merge https://github.com/TourmalineCore/inner-circle-documents-ui/pull/48
   API_ROOT: "\"{{ .Values.baseExternalUrl }}/api\""
   API_ROOT_AUTH: "\"{{ .Values.baseExternalUrl }}/api/auth\""
   LINK_TO_DOCUMENTS_SERVICE: "\"/documents/\""
