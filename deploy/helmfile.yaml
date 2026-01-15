@@ -360,4 +360,4 @@ releases:
       - events: ["cleanup"]
         showlogs: true
         command: "kubectl"
-        args: ["wait", "--for=condition=complete", "--timeout=10s", "job/create-test-accounts", "--namespace", "local"]
+        args: ["wait", "--for=condition=complete", "--timeout=30s", "job/create-test-accounts", "--namespace", "local"]
