@@ -157,7 +157,7 @@ jobs:
         java -jar /tmp/karate.jar .
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
-        API_ROOT_URL: "http://localhost:30090"
+        API_ROOT_URL: "http://localhost:30090/api/books"
         AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS: "malfoy@tourmalinecore.com"
         AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS: "Serpens1!"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
