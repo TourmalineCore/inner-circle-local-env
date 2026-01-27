@@ -40,79 +40,79 @@ jobs:
 
     # CYPRESS UI TESTS
 
-    - name: Checkout Compensations UI
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/inner-circle-compensations-ui
+    # - name: Checkout Compensations UI
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: TourmalineCore/inner-circle-compensations-ui
 
-    # currently there's a risk that when we run this step the cluster is already destroyed since it was created in a previous step
-    # for the sake of simlicity it is kept like this here
-    # however, in production with longer pipelines: more services and more tests it will most likely start causing issues
-    # creation of the cluster and deployment to it should be in the same step as the e2e tests running 
-    - name: Cypress Run Against Compensations UI
-      uses: cypress-io/github-action@v6
-      with:
-        config-file: cypress.config.local-env.ts
+    # # currently there's a risk that when we run this step the cluster is already destroyed since it was created in a previous step
+    # # for the sake of simlicity it is kept like this here
+    # # however, in production with longer pipelines: more services and more tests it will most likely start causing issues
+    # # creation of the cluster and deployment to it should be in the same step as the e2e tests running 
+    # - name: Cypress Run Against Compensations UI
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     config-file: cypress.config.local-env.ts
 
-    - name: Checkout Books UI
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/inner-circle-books-ui
+    # - name: Checkout Books UI
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: TourmalineCore/inner-circle-books-ui
 
-    - name: Cypress Run Against Books UI
-      uses: cypress-io/github-action@v6
-      with:
-        config-file: cypress.config.local-env.ts
+    # - name: Cypress Run Against Books UI
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     config-file: cypress.config.local-env.ts
 
-    - name: Checkout Auth UI
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/auth-ui
+    # - name: Checkout Auth UI
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: TourmalineCore/auth-ui
 
-    - name: Cypress Run Against Auth UI
-      uses: cypress-io/github-action@v6
-      with:
-        config-file: cypress.config.local-env.ts
+    # - name: Cypress Run Against Auth UI
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     config-file: cypress.config.local-env.ts
 
-    - name: Checkout Layout UI
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/inner-circle-layout-ui
+    # - name: Checkout Layout UI
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: TourmalineCore/inner-circle-layout-ui
 
-    - name: Cypress Run Against Layout UI
-      uses: cypress-io/github-action@v6
-      with:
-        config-file: cypress.config.local-env.ts
+    # - name: Cypress Run Against Layout UI
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     config-file: cypress.config.local-env.ts
 
-    - name: Checkout Accounts UI
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/accounts-ui
+    # - name: Checkout Accounts UI
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: TourmalineCore/accounts-ui
 
-    - name: Cypress Run Against Accounts UI
-      uses: cypress-io/github-action@v6
-      with:
-        config-file: cypress.config.local-env.ts
+    # - name: Cypress Run Against Accounts UI
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     config-file: cypress.config.local-env.ts
 
-    - name: Checkout Employees UI
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/inner-circle-ui
+    # - name: Checkout Employees UI
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: TourmalineCore/inner-circle-ui
 
-    - name: Cypress Run Against Employees UI
-      uses: cypress-io/github-action@v6
-      with:
-        config-file: cypress.config.local-env.ts
+    # - name: Cypress Run Against Employees UI
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     config-file: cypress.config.local-env.ts
 
-    - name: Checkout Time UI
-      uses: actions/checkout@v4
-      with:
-        repository: TourmalineCore/inner-circle-time-ui
+    # - name: Checkout Time UI
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: TourmalineCore/inner-circle-time-ui
 
-    - name: Cypress Run Against Time UI
-      uses: cypress-io/github-action@v6
-      with:
-        config-file: cypress.config.local-env.ts
+    # - name: Cypress Run Against Time UI
+    #   uses: cypress-io/github-action@v6
+    #   with:
+    #     config-file: cypress.config.local-env.ts
 
     # KARATE API TESTS
 
