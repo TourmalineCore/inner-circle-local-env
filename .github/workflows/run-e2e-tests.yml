@@ -142,9 +142,9 @@ jobs:
         java -jar /tmp/karate.jar .
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
-        API_ROOT_URL: "http://localhost:30090/api"
-        AUTH_LOGIN: "malfoy@tourmalinecore.com"
-        AUTH_PASSWORD: "Serpens1!"
+        API_ROOT_URL: "http://localhost:30090/api/account-management"
+        AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS: "malfoy@tourmalinecore.com"
+        AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS: "Serpens1!"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Books API
@@ -156,10 +156,10 @@ jobs:
       run: |
         java -jar /tmp/karate.jar .
       env:
-        AUTH_API_ROOT_URL: "http://localhost:30090/api"
-        API_ROOT_URL: "http://localhost:30090"
-        AUTH_LOGIN: "malfoy@tourmalinecore.com"
-        AUTH_PASSWORD: "Serpens1!"
+        AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
+        API_ROOT_URL: "http://localhost:30090/api/books"
+        AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS: "malfoy@tourmalinecore.com"
+        AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS: "Serpens1!"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Compensations API
@@ -185,9 +185,9 @@ jobs:
       run: |
         java -jar /tmp/karate.jar .
       env:
-        "AUTH_LOGIN": "malfoy@tourmalinecore.com"
-        "AUTH_PASSWORD": "Serpens1!"
-        "AUTH_API_ROOT_URL": "http://localhost:30090/api"
+        "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
         "API_ROOT_URL": "http://localhost:30090/api/employees"
 
     - name: Checkout Auth API
@@ -199,9 +199,9 @@ jobs:
       run: |
         java -jar /tmp/karate.jar .
       env:
-        "AUTH_LOGIN": "malfoy@tourmalinecore.com"
-        "AUTH_PASSWORD": "Serpens1!"
-        "API_ROOT_URL": "http://localhost:30090/api"
+        "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "API_ROOT_URL": "http://localhost:30090/api/auth"
 
     - name: Checkout Documents API
       uses: actions/checkout@v4
