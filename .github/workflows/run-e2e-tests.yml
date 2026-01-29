@@ -174,7 +174,7 @@ jobs:
         "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
         "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
-        "API_ROOT_URL": "http://localhost:30090"
+        "API_ROOT_URL": "http://localhost:30090/api/compensations"
 
     - name: Checkout Employees API
       uses: actions/checkout@v4
