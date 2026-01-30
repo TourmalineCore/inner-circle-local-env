@@ -21,6 +21,14 @@
       "newPassword": "Serpens1!"
     },
     {
+      "corporateEmail": "snape@tourmalinecore.com",
+      "firstName": "Severus",
+      "lastName": "Snape",
+      "roleName": "CEO",
+      "tenantName": "AUTO_TESTS_ONLY Slytherin",
+      "newPassword": "Silencio1!"
+    },
+    {
       "corporateEmail": "chang@tourmalinecore.com",
       "firstName": "Cho",
       "lastName": "Chang",
