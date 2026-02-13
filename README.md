@@ -103,6 +103,49 @@ When the all k8s pods are running inside **`local`** namespace you should be abl
 - UI: http://localhost:30090/
 - API: http://localhost:30090/api/
 
+## Upgrade Infra Dependencies
+
+From time to time there is a need to upgrade kind, k8s, helm, and helmfile versions in our dev container. These dependencies versions have to be aligned and compatible with each other. Please follow the steps bellow to make this right:
+
+- Go to kind home page here https://kind.sigs.k8s.io/ and check the current version. For instance, at the moment of docs writing it was `v0.29.0`.
+- Go to kind releases page and find this particular release, it this case the URL was https://github.com/kubernetes-sigs/kind/releases/tag/v0.29.0.
+- In `Images pre-built for this release` section find the newest supported k8s version, in this case it was `v1.33.1`.
+- Go to Helm Supported Version Skew page here https://helm.sh/docs/topics/version_skew/ to check the newest Helm version that supports our k8s version `v1.33.1`. In this case the page stated that Supported Kubernetes Versions were 1.33.x - 1.30.x and their Helm Version was 3.18.x.
+- Now we need to find the newest Helmfile version that supports Helm version 3.18.x. Go to Helmfile releases page here https://github.com/helmfile/helmfile/releases. In this case the newest version was `v1.1.3` and it supported Helm version v3.18.3. Even though the latest Hem version was v3.18.4 we could not use it because Helmfile wasn't yet supporting it.
+
+That is how the changed features of `.devcontainer/devcontainer.json` is going to look:
+ 
+```json
+		"ghcr.io/devcontainers/features/kubectl-helm-minikube:1.1.9": {
+			"version": "1.33.1",
+			"helm": "3.18.3",
+			"minikube": "none"
+		},
+		"ghcr.io/mpriscella/features/kind:1.0.1": {
+			"version": "v0.29.0"
+		},
+		"ghcr.io/schlich/devcontainer-features/helmfile:1.0.0": {
+			"version": "v1.1.3"
+		},
+```
+
+There is also sometimes a need to update the docker version. For example, we had this error during the initialization of devcontainers local-env:
+
+```bash
+Error response from daemon: client version 1.41 is too old. Minimum supported API version is 1.44, please upgrade your client to a newer version
+```
+
+Go to docker home page here https://docs.docker.com/engine/release-notes/29/ and check the current version. For instance, at the moment of docs writing it was `v29.2.1`.
+
+That is how the changed features of `.devcontainer/devcontainer.json` is going to look:
+```json
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1.4.5": {
+			"version": "29.2.1",
+			"enableNonRootDocker": "true",
+			"moby": "true"
+		},
+```
+
 ## Troubleshooting
 - OpenLens not showing any pods, deployments, etc.. Make sure the "Namespace" in view "Workloads" is set to "`local`" or "`All namespaces`"
 
