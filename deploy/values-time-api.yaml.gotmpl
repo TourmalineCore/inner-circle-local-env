@@ -8,5 +8,5 @@ extraConfigMapEnvVars:
   ENABLE_EXCEPTION_DETAILS: "true"
 
 extraSecretEnvVars:
-  ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=items-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
+  ConnectionStrings__DefaultConnection: "Host=postgresql;port=5432;Database=time-db;Username={{ .Values.postgresUsername }};Password={{ .Values.postgresPassword }}"
   AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
