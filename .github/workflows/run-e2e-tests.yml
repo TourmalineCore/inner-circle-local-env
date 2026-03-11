@@ -114,6 +114,16 @@ jobs:
       with:
         config-file: cypress.config.local-env.ts
 
+    - name: Checkout Invoices UI
+      uses: actions/checkout@v4
+      with:
+        repository: TourmalineCore/inner-circle-invoices-ui
+
+    - name: Cypress Run Against Invoices UI
+      uses: cypress-io/github-action@v6
+      with:
+        config-file: cypress.config.local-env.ts
+
     # KARATE API TESTS
 
     # Set up JDK 17 once for all API tests
