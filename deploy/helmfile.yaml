@@ -185,6 +185,26 @@ releases:
       - values.yaml.gotmpl
       - values-time-api.yaml.gotmpl
 
+  - name: inner-circle-invoices-api
+    labels:
+      app: inner-circle-invoices-api
+    wait: true
+    chart: bitnami/aspnet-core
+    version: 4.4.7
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+      - inner-circle-employees-api
+      - inner-circle-time-api
+      - postgresql
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      # %23 is thee URL encoded version of the `#` character. It's needed because `#` is fragment in URL and everything that follows it is ignored.
+      - git::https://github.com/TourmalineCore/inner-circle-invoices-api.git@/ci/values.yaml?ref=feature/%235-add-invoices-api
+      - values.yaml.gotmpl
+      - values-invoices-api.yaml.gotmpl
+
   - name: inner-circle-email-sender
     labels:
       app: inner-circle-email-sender
@@ -356,10 +376,11 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
-      # - inner-circle-invoices-api
+      - inner-circle-invoices-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
-      - git::https://github.com/TourmalineCore/inner-circle-invoices-ui.git@/ci/values.yaml?ref=master
+      # %23 is thee URL encoded version of the `#` character. It's needed because `#` is fragment in URL and everything that follows it is ignored.
+      - git::https://github.com/TourmalineCore/inner-circle-invoices-ui.git@/ci/values.yaml?ref=feature/%2352-add-client-table
       - values.yaml.gotmpl
       - values-invoices-ui.yaml.gotmpl
 

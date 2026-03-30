@@ -1,0 +1,8 @@
+image:
+  tag: "sha-e35fd20c5da7f9a2e31d0d0cb96210455a3ba92a "
+
+extraConfigMapEnvVars:
+  ASPNETCORE_HTTP_PORTS: "80"
+  AuthenticationOptions__PublicSigningKey: "{{ .Values.publicSigningKey }}"
+  ExternalDepsUrls__EmployeesApiRootUrl: "{{ .Values.employeesServiceUrl }}"
+  ExternalDepsUrls__TimeApiRootUrl: "{{ .Values.timeServiceUrl }}"
