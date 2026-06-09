@@ -269,7 +269,7 @@ jobs:
     - name: Checkout Invoices API
       uses: actions/checkout@v4
       with:
-        repository: TourmalineCore/inner-circle-invoice-api
+        repository: TourmalineCore/inner-circle-invoices-api
    
     - name: Karate Run Against Invoices API
       run: |
