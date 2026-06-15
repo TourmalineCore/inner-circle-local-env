@@ -53,6 +53,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/auth-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-auth-api.yaml.gotmpl
 
   - name: inner-circle-accounts-api
@@ -72,6 +73,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/accounts-api.git@/Api/ci/values.yaml?ref={{ env "ACCOUNTS_API_BRANCH" | default "master" }}
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-accounts-api.yaml.gotmpl
 
   - name: inner-circle-documents-api
@@ -91,6 +93,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-documents-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-documents-api.yaml.gotmpl
 
   - name: inner-circle-compensations-api
@@ -110,6 +113,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-compensations-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-compensations-api.yaml.gotmpl
 
   - name: inner-circle-employees-api
@@ -128,6 +132,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-employees-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-employees-api.yaml.gotmpl
   
   - name: inner-circle-books-api
@@ -147,6 +152,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-books-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-books-api.yaml.gotmpl
 
   - name: inner-circle-items-api
@@ -165,6 +171,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-items-api.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-items-api.yaml.gotmpl
 
   - name: inner-circle-time-api
@@ -183,6 +190,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-time-api.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-time-api.yaml.gotmpl
 
   - name: inner-circle-invoices-api
@@ -202,6 +210,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-invoices-api.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-invoices-api.yaml.gotmpl
 
   - name: inner-circle-email-sender
