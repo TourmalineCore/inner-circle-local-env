@@ -155,6 +155,7 @@ jobs:
         API_ROOT_URL: "http://localhost:30090/api/account-management"
         AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS: "malfoy@tourmalinecore.com"
         AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS: "Serpens1!"
+        "CORS_ALLOWED_ORIGINS": "*"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Books API
@@ -170,6 +171,7 @@ jobs:
         API_ROOT_URL: "http://localhost:30090/api/books"
         AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS: "malfoy@tourmalinecore.com"
         AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS: "Serpens1!"
+        "CORS_ALLOWED_ORIGINS": "*"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Compensations API
@@ -184,6 +186,7 @@ jobs:
         "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
         "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "CORS_ALLOWED_ORIGINS": "*"
         "API_ROOT_URL": "http://localhost:30090/api/compensations"
 
     - name: Checkout Employees API
@@ -198,6 +201,7 @@ jobs:
         "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
         "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "CORS_ALLOWED_ORIGINS": "*"
         "API_ROOT_URL": "http://localhost:30090/api/employees"
 
     - name: Checkout Auth API
@@ -211,6 +215,7 @@ jobs:
       env:
         "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
         "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "CORS_ALLOWED_ORIGINS": "*"
         "API_ROOT_URL": "http://localhost:30090/api/auth"
 
     - name: Checkout Documents API
@@ -225,6 +230,7 @@ jobs:
         "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
         "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "CORS_ALLOWED_ORIGINS": "*"
         "API_ROOT_URL": "http://localhost:30090/api/documents"
     
     - name: Checkout Items API
@@ -264,6 +270,7 @@ jobs:
         "AUTH_SLYTHERINE_TENANT_GREGORY_GOYLE_PASSWORD_WITHOUT_PERMISSIONS": "Crucio1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
         "API_ROOT_URL": "http://localhost:30090/api/time"
+        "CORS_ALLOWED_ORIGINS": "*"
         "SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES": "false"
 
     - name: Checkout Invoices API
@@ -285,4 +292,5 @@ jobs:
         "AUTH_SLYTHERINE_TENANT_GREGORY_GOYLE_PASSWORD_WITHOUT_PERMISSIONS": "Crucio1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
         "API_ROOT_URL": "http://localhost:30090/api/invoices"
+        "CORS_ALLOWED_ORIGINS": "*"
         "SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES": "false"
