@@ -366,7 +366,7 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
-      # - inner-circle-time-api
+      - inner-circle-time-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-time-ui.git@/ci/values.yaml?ref=master
