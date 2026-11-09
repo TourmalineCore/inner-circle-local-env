@@ -55,9 +55,9 @@ kind create cluster --name inner-circle --config kind-local-config.yaml --kubeco
 2. Select Kubernetes in the settings on the right;
 3. Turn on Kubernetes;
 4. Apply the settings with the “Apply & restart” button;
-5. Create `.to-dos-cluster-kubeconfig` file in this repo root folder;
+5. Create `.inner-circle-cluster-kubeconfig` file in this repo root folder;
 6. Go to your system user `.kube` folder and open `config` file (on Windows: `C:/Users/<USERNAME>/.kube`, on masOS `Users/<USERNAME>/.kube/config`);
-7. Copy this config file content and paste to `.to-dos-cluster-kubeconfig` file, created in the first step.
+7. Copy this config file content and paste to `.inner-circle-cluster-kubeconfig` file, created in the first step.
 
 ### Cluster Connection
 
