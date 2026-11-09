@@ -201,7 +201,7 @@ image:
 To deploy local Docker image, first load it into the kind cluster using the following command:
 
 ```
-kind load docker-image my-invoices:0.0.1  --name inner-circle
+kind load docker-image your-local-image:your-tag --name your-cluster-name
 ```
 
 Then use the following configuration for `values-your-service.yaml.gotmpl` file:
@@ -209,7 +209,7 @@ Then use the following configuration for `values-your-service.yaml.gotmpl` file:
 ```
 image:
   registry: ""
-  repository: "my-time"
+  repository: "my-layout"
   tag: "0.0.1"
   pullPolicy: "Never"
 ```
