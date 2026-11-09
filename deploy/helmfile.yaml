@@ -7,11 +7,13 @@ repositories:
 environments:
   local:
     values:
-      - environments/{{ .Environment.Name }}/values.yaml.gotmpl
+      - environments/local/values.yaml.gotmpl
 
 helmDefaults:
   timeout: 600
-  
+
+---
+
 releases:
   - name: ingress-nginx
     labels:
@@ -51,6 +53,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/auth-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-auth-api.yaml.gotmpl
 
   - name: inner-circle-accounts-api
@@ -70,6 +73,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/accounts-api.git@/Api/ci/values.yaml?ref={{ env "ACCOUNTS_API_BRANCH" | default "master" }}
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-accounts-api.yaml.gotmpl
 
   - name: inner-circle-documents-api
@@ -89,6 +93,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-documents-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-documents-api.yaml.gotmpl
 
   - name: inner-circle-compensations-api
@@ -108,6 +113,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-compensations-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-compensations-api.yaml.gotmpl
 
   - name: inner-circle-employees-api
@@ -126,6 +132,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-employees-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-employees-api.yaml.gotmpl
   
   - name: inner-circle-books-api
@@ -145,6 +152,7 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-books-api.git@/Api/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-books-api.yaml.gotmpl
 
   - name: inner-circle-items-api
@@ -163,7 +171,47 @@ releases:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-items-api.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
       - values-items-api.yaml.gotmpl
+
+  - name: inner-circle-time-api
+    labels:
+      app: inner-circle-time-api
+    wait: true
+    chart: bitnami/aspnet-core
+    version: 4.4.7
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+      - inner-circle-employees-api
+      - postgresql
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-time-api.git@/ci/values.yaml?ref=master
+      - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
+      - values-time-api.yaml.gotmpl
+
+  - name: inner-circle-invoices-api
+    labels:
+      app: inner-circle-invoices-api
+    wait: true
+    chart: bitnami/aspnet-core
+    version: 4.4.7
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+      - inner-circle-employees-api
+      - inner-circle-time-api
+      - postgresql
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-invoices-api.git@/ci/values.yaml?ref=master
+      - values.yaml.gotmpl
+      - values-api-shared.yaml.gotmpl
+      - values-invoices-api.yaml.gotmpl
 
   - name: inner-circle-email-sender
     labels:
@@ -318,12 +366,30 @@ releases:
     # thus we wait for it to be ready first
     needs: 
       - ingress-nginx
-      # - inner-circle-time-api
+      - inner-circle-time-api
     values:
       # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
       - git::https://github.com/TourmalineCore/inner-circle-time-ui.git@/ci/values.yaml?ref=master
       - values.yaml.gotmpl
       - values-time-ui.yaml.gotmpl
+    
+  - name: inner-circle-invoices-ui
+    labels:
+      app: inner-circle-invoices-ui
+    wait: true
+    chart: bitnami/nginx
+    # after 15.3.5 our docker file or setup can no longer start, need to investigate what is wrong for the newer versions
+    version: 15.3.5
+    # it won't work anyway until ingress controller is created
+    # thus we wait for it to be ready first
+    needs: 
+      - ingress-nginx
+      - inner-circle-invoices-api
+    values:
+      # https://helmfile.readthedocs.io/en/latest/#loading-remote-environment-values-files
+      - git::https://github.com/TourmalineCore/inner-circle-invoices-ui.git@/ci/values.yaml?ref=master
+      - values.yaml.gotmpl
+      - values-invoices-ui.yaml.gotmpl
 
   - name: create-test-accounts
     chart: ./jobs
@@ -338,3 +404,8 @@ releases:
         command: "sh"
         # build docker image and load it to cluster
         args: ["-c", "docker build -t create-test-accounts-for-local-env:0.0.1 ./jobs && kind load docker-image create-test-accounts-for-local-env:0.0.1 -n inner-circle"]
+        # wait for successful job complete to ensure that all accounts was created and not affect e2e tests in pipeline
+      - events: ["cleanup"]
+        showlogs: true
+        command: "kubectl"
+        args: ["wait", "--for=condition=complete", "--timeout=30s", "job/create-test-accounts", "--namespace", "local"]

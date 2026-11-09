@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout Local Env
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Log in to GitHub Container Registry
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
@@ -41,7 +41,7 @@ jobs:
     # CYPRESS UI TESTS
 
     - name: Checkout Compensations UI
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-compensations-ui
 
@@ -50,235 +50,197 @@ jobs:
     # however, in production with longer pipelines: more services and more tests it will most likely start causing issues
     # creation of the cluster and deployment to it should be in the same step as the e2e tests running 
     - name: Cypress Run Against Compensations UI
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v7
       with:
         config-file: cypress.config.local-env.ts
 
     - name: Checkout Books UI
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-books-ui
 
     - name: Cypress Run Against Books UI
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v7
       with:
         config-file: cypress.config.local-env.ts
 
     - name: Checkout Auth UI
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/auth-ui
 
     - name: Cypress Run Against Auth UI
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v7
       with:
         config-file: cypress.config.local-env.ts
 
     - name: Checkout Layout UI
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-layout-ui
 
     - name: Cypress Run Against Layout UI
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v7
       with:
         config-file: cypress.config.local-env.ts
 
     - name: Checkout Accounts UI
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/accounts-ui
 
     - name: Cypress Run Against Accounts UI
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v7
       with:
         config-file: cypress.config.local-env.ts
 
     - name: Checkout Employees UI
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-ui
 
     - name: Cypress Run Against Employees UI
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v7
       with:
         config-file: cypress.config.local-env.ts
 
     - name: Checkout Time UI
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-time-ui
 
     - name: Cypress Run Against Time UI
-      uses: cypress-io/github-action@v6
+      uses: cypress-io/github-action@v7
+      with:
+        config-file: cypress.config.local-env.ts
+
+    - name: Checkout Invoices UI
+      uses: actions/checkout@v7
+      with:
+        repository: TourmalineCore/inner-circle-invoices-ui
+
+    - name: Cypress Run Against Invoices UI
+      uses: cypress-io/github-action@v7
       with:
         config-file: cypress.config.local-env.ts
 
     # KARATE API TESTS
 
+    # Set up JDK 17 once for all API tests
+    - name: Set up JDK 17
+      uses: actions/setup-java@v6
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+      
+    # Download Karate JAR once for all API tests and save it to /tmp/karate.jar
+    # The /tmp folder is chosen because
+    # 1. It always exists on Linux and is writable
+    # 2. It is independent of the current working directory, allowing use the same file for all api tests, even if the working directory changes
+    # 3. This avoids duplicate downloads of the JAR file for each API
+    - name: Download Karate JAR
+      run: |
+        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o /tmp/karate.jar
+       
     - name: Checkout Accounts API
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/accounts-api
 
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
     - name: Karate Run Against Accounts API
       run: |
-        java -jar karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
-        API_ROOT_URL: "http://localhost:30090/api"
-        AUTH_LOGIN: "malfoy@tourmalinecore.com"
-        AUTH_PASSWORD: "Serpens1!"
+        API_ROOT_URL: "http://localhost:30090/api/account-management"
+        AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS: "malfoy@tourmalinecore.com"
+        AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS: "Serpens1!"
+        "CORS_ALLOWED_ORIGINS": "*"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Books API
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-books-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+        
     - name: Karate Run Against Books API
       run: |
-        java -jar karate.jar .
+        java -jar /tmp/karate.jar .
       env:
-        AUTH_API_ROOT_URL: "http://localhost:30090/api"
-        API_ROOT_URL: "http://localhost:30090"
-        AUTH_LOGIN: "malfoy@tourmalinecore.com"
-        AUTH_PASSWORD: "Serpens1!"
+        AUTH_API_ROOT_URL: "http://localhost:30090/api/auth"
+        API_ROOT_URL: "http://localhost:30090/api/books"
+        AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS: "malfoy@tourmalinecore.com"
+        AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS: "Serpens1!"
+        "CORS_ALLOWED_ORIGINS": "*"
         SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES: "false"
 
     - name: Checkout Compensations API
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-compensations-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
       
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
     - name: Karate Run Against Compensations API
       run: |
-        java -jar karate.jar .
+        java -jar /tmp/karate.jar .
       env:
-        "AUTH_LOGIN": "malfoy@tourmalinecore.com"
-        "AUTH_PASSWORD": "Serpens1!"
-        "AUTH_API_ROOT_URL": "http://localhost:30090/api"
-        "API_ROOT_URL": "http://localhost:30090"
+        "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "CORS_ALLOWED_ORIGINS": "*"
+        "API_ROOT_URL": "http://localhost:30090/api/compensations"
 
     - name: Checkout Employees API
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-employees-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+   
     - name: Karate Run Against Employees API
       run: |
-        java -jar karate.jar .
+        java -jar /tmp/karate.jar .
       env:
-        "AUTH_LOGIN": "malfoy@tourmalinecore.com"
-        "AUTH_PASSWORD": "Serpens1!"
-        "AUTH_API_ROOT_URL": "http://localhost:30090/api"
+        "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "CORS_ALLOWED_ORIGINS": "*"
         "API_ROOT_URL": "http://localhost:30090/api/employees"
 
     - name: Checkout Auth API
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/auth-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+    
     - name: Karate Run Against Auth API
       run: |
-        java -jar karate.jar .
+        java -jar /tmp/karate.jar .
       env:
-        "AUTH_LOGIN": "malfoy@tourmalinecore.com"
-        "AUTH_PASSWORD": "Serpens1!"
-        "API_ROOT_URL": "http://localhost:30090/api"
+        "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "CORS_ALLOWED_ORIGINS": "*"
+        "API_ROOT_URL": "http://localhost:30090/api/auth"
 
     - name: Checkout Documents API
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-documents-api
   
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
     - name: Karate Run Against Documents API
       run: |
-        java -jar karate.jar .
+        java -jar /tmp/karate.jar .
       env:
-        "AUTH_LOGIN": "malfoy@tourmalinecore.com"
-        "AUTH_PASSWORD": "Serpens1!"
-        "AUTH_API_ROOT_URL": "http://localhost:30090/api"
-        "API_ROOT_URL": "http://localhost:30090"
+        "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "CORS_ALLOWED_ORIGINS": "*"
+        "API_ROOT_URL": "http://localhost:30090/api/documents"
     
     - name: Checkout Items API
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         repository: TourmalineCore/inner-circle-items-api
-  
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-      
-    - name: Download Karate JAR
-      run: |
-        curl -L https://github.com/karatelabs/karate/releases/download/v1.5.1/karate-1.5.1.jar -o karate.jar
-       
+   
     - name: Karate Run Against Items API
       run: |
-        java -jar karate.jar .
+        java -jar /tmp/karate.jar .
       env:
         "AUTH_FIRST_TENANT_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
         "AUTH_FIRST_TENANT_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
@@ -288,3 +250,47 @@ jobs:
         "AUTH_PASSWORD_WITHOUT_PERMISSIONS": "Crucio1!"
         "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
         "API_ROOT_URL": "http://localhost:30090/api/items"
+
+    - name: Checkout Time API
+      uses: actions/checkout@v7
+      with:
+        repository: TourmalineCore/inner-circle-time-api
+   
+    - name: Karate Run Against Time API
+      run: |
+        java -jar /tmp/karate.jar .
+      env:
+        "AUTH_SLYTHERINE_TENANT_DRACO_MALFOY_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_SLYTHERINE_TENANT_DRACO_MALFOY_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "AUTH_SLYTHERINE_TENANT_SEVERUS_SNAPE_LOGIN_WITH_ALL_PERMISSIONS": "snape@tourmalinecore.com"
+        "AUTH_SLYTHERINE_TENANT_SEVERUS_SNAPE_PASSWORD_WITH_ALL_PERMISSIONS": "Silencio1!"
+        "AUTH_RAVENCLAW_TENANT_CHO_CHANG_LOGIN_WITH_ALL_PERMISSIONS": "chang@tourmalinecore.com"
+        "AUTH_RAVENCLAW_TENANT_CHO_CHANG_PASSWORD_WITH_ALL_PERMISSIONS": "Reparo1!"
+        "AUTH_SLYTHERINE_TENANT_GREGORY_GOYLE_LOGIN_WITHOUT_PERMISSIONS": "goyle@tourmalinecore.com"
+        "AUTH_SLYTHERINE_TENANT_GREGORY_GOYLE_PASSWORD_WITHOUT_PERMISSIONS": "Crucio1!"
+        "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "API_ROOT_URL": "http://localhost:30090/api/time"
+        "CORS_ALLOWED_ORIGINS": "*"
+        "SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES": "false"
+
+    - name: Checkout Invoices API
+      uses: actions/checkout@v7
+      with:
+        repository: TourmalineCore/inner-circle-invoices-api
+   
+    - name: Karate Run Against Invoices API
+      run: |
+        java -jar /tmp/karate.jar .
+      env:
+        "AUTH_SLYTHERINE_TENANT_DRACO_MALFOY_LOGIN_WITH_ALL_PERMISSIONS": "malfoy@tourmalinecore.com"
+        "AUTH_SLYTHERINE_TENANT_DRACO_MALFOY_PASSWORD_WITH_ALL_PERMISSIONS": "Serpens1!"
+        "AUTH_SLYTHERINE_TENANT_SEVERUS_SNAPE_LOGIN_WITH_ALL_PERMISSIONS": "snape@tourmalinecore.com"
+        "AUTH_SLYTHERINE_TENANT_SEVERUS_SNAPE_PASSWORD_WITH_ALL_PERMISSIONS": "Silencio1!"
+        "AUTH_RAVENCLAW_TENANT_CHO_CHANG_LOGIN_WITH_ALL_PERMISSIONS": "chang@tourmalinecore.com"
+        "AUTH_RAVENCLAW_TENANT_CHO_CHANG_PASSWORD_WITH_ALL_PERMISSIONS": "Reparo1!"
+        "AUTH_SLYTHERINE_TENANT_GREGORY_GOYLE_LOGIN_WITHOUT_PERMISSIONS": "goyle@tourmalinecore.com"
+        "AUTH_SLYTHERINE_TENANT_GREGORY_GOYLE_PASSWORD_WITHOUT_PERMISSIONS": "Crucio1!"
+        "AUTH_API_ROOT_URL": "http://localhost:30090/api/auth"
+        "API_ROOT_URL": "http://localhost:30090/api/invoices"
+        "CORS_ALLOWED_ORIGINS": "*"
+        "SHOULD_USE_FAKE_EXTERNAL_DEPENDENCIES": "false"
