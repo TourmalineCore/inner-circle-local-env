@@ -24,7 +24,7 @@
 1. Install Docker
 2. Install Visual Studio Code
 3. Install Visual Studio Code [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Extension
-3. Install [Lens](https://k8slens.dev/) or [OpenLens](https://github.com/MuhammedKalkan/OpenLens/releases)
+4. Install [Lens](https://k8slens.dev/) or [OpenLens](https://github.com/MuhammedKalkan/OpenLens/releases)
 
 ## VSCode Dev Container
 
@@ -40,6 +40,13 @@ When your Dev Container is ready, the VS Code window will be re-opened. Open a n
 >Note: You **don't** need to install these packages in your OS, these are part of the Dev Container already. Thus, it is a clean way to run the stack for any host OS.
 
 ## Manage Local k8s Cluster
+
+When using GitHub Codespaces you may get the following error when running commands that interact with Docker API (e.g., kind):`Error response from daemon: client version 1.53 is too new. Maximum supported API version is 1.43`
+This happens because locally we newest Docker and Docker out of Docker versions. Docker in Codespaces uses an older API version, while the Docker CLI(provided by Docker of Docker devcontainer feature) may attempt to use a newer version.
+To fix this, set the Docker API version to 1.43
+```bash
+export DOCKER_API_VERSION=1.43
+```
 
 ### Cluster Creation
 
